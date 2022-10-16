@@ -9,9 +9,6 @@ namespace LOK1game.Weapon
     {
         [SerializeField] private List<GunData> _guns;
 
-        [Space]
-        [SerializeField] private FirstPersonArms _arms;
-
         private IWeapon _currentWeapon;
         private int _currentWeaponIndex;
         private Player.Player _player;
@@ -58,7 +55,7 @@ namespace LOK1game.Weapon
             if (_currentWeapon.CanBeUsed)
             {
                 _currentWeapon.Use(_player);
-                _arms.Animator.Play("Shoot", 0, 0f);
+                _player.FirstPersonArms.Animator.Play("Shoot", 0, 0f);
             }
         }
 
@@ -67,13 +64,13 @@ namespace LOK1game.Weapon
             if (data.WeaponId == EWeaponId.None)
                 throw new System.Exception($"WeaponData {data}' ID is setted to {data.WeaponId}!!");
 
-            _arms.ClearRightHand();
+            _player.FirstPersonArms.ClearRightHand();
 
             var gun = Instantiate(data.Prefab);
 
-            _arms.AttachObjectToRightHand(gun);
-            _arms.Animator.runtimeAnimatorController = data.AnimatorOverride;
-            _arms.Animator.Play("Equip", 0, 0f);
+            _player.FirstPersonArms.AttachObjectToRightHand(gun);
+            _player.FirstPersonArms.Animator.runtimeAnimatorController = data.AnimatorOverride;
+            _player.FirstPersonArms.Animator.Play("Equip", 0, 0f);
 
             _currentWeapon = gun.GetComponent<IWeapon>();
         }

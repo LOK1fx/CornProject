@@ -50,6 +50,7 @@ namespace LOK1game.Player
             else
             {
                 _camera.Priority = 0;
+                _camera.gameObject.tag = Constants.Tags.UNTAGGED;
             }
 
             DesiredPosition = _cameraTransform.localPosition;

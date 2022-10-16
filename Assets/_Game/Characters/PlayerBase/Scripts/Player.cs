@@ -3,22 +3,29 @@ using System.Collections.Generic;
 using UnityEngine;
 using LOK1game.Tools;
 using Photon.Pun;
+using System;
 
 namespace LOK1game.Player
 {
     [RequireComponent(typeof(PlayerMovement), typeof(PlayerCamera), typeof(PlayerState))]
     public class Player : Pawn, IDamagable
     {
+        public event Action OnHealthChanged;
+
         public PlayerMovement Movement { get; private set; }
         public PlayerCamera Camera { get; private set; }
         public PlayerState State { get; private set; }
-
+        public FirstPersonArms FirstPersonArms => _firstPersonArms;
         public int Health { get; private set; }
         public bool IsDead { get; private set; }
 
+        [SerializeField] private FirstPersonArms _firstPersonArms;
+        [SerializeField] private GameObject _visual;
+        [SerializeField] private GameObject _playerInfoRoot;
+
+        [Space]
+        [SerializeField] private float _respawnTime;
         [SerializeField] private int _maxHealth = 100;
-        [SerializeField] private GameObject _vis; //TEST
-        [SerializeField] private RectTransform _healthBar; //TEST
 
         private void Awake()
         {
@@ -36,6 +43,10 @@ namespace LOK1game.Player
             if(IsLocal == false)
             {
                 gameObject.layer = 7;
+            }
+            else
+            {
+                _playerInfoRoot.SetActive(false);
             }
         }
 
@@ -107,7 +118,7 @@ namespace LOK1game.Player
         {
             Health += value;
 
-            UpdateHealthBar();
+            OnHealthChanged?.Invoke();
         }
 
         [PunRPC]
@@ -115,7 +126,7 @@ namespace LOK1game.Player
         {
             Health -= value;
 
-            UpdateHealthBar();
+            OnHealthChanged?.Invoke();
         }
 
         [PunRPC]
@@ -123,12 +134,7 @@ namespace LOK1game.Player
         {
             Health = value;
 
-            UpdateHealthBar();
-        }
-
-        private void UpdateHealthBar()
-        {
-            _healthBar.localScale = new Vector3(Health * 0.01f, 1f, 1f);
+            OnHealthChanged?.Invoke();
         }
 
         [PunRPC]
@@ -141,24 +147,32 @@ namespace LOK1game.Player
             Movement.Rigidbody.isKinematic = true;
             Movement.PlayerCollider.enabled = false;
 
-            _vis.SetActive(false);
+            _visual.SetActive(false);
 
-            Invoke(nameof(Revive), 4f);
+            var respawnPosition = GetRandomSpawnPosition(true);
+
+            photonView.RPC(nameof(Respawn), RpcTarget.All, new object[3] { respawnPosition.x, respawnPosition.y, respawnPosition.z } );
         }
 
         [PunRPC]
-        private void Revive()
+        private void Respawn(float respawnPositionX, float respawnPositionY, float respawnPositionZ) //Photon RPC don't serialize/deserialize Vector3 type
         {
+            StartCoroutine(RespawnRoutine(new Vector3(respawnPositionX, respawnPositionY, respawnPositionZ)));
+        }
+
+        private IEnumerator RespawnRoutine(Vector3 respawnPosition)
+        {
+            yield return new WaitForSeconds(_respawnTime);
+
             IsDead = false;
             Movement.Rigidbody.isKinematic = false;
             Movement.PlayerCollider.enabled = true;
             Movement.Rigidbody.velocity = Vector3.zero;
 
-            photonView.RPC(nameof(SetHealth), RpcTarget.All, new object[1] { _maxHealth });
+            SetHealth(_maxHealth);
 
-            _vis.SetActive(true);
-
-            transform.position = GetRandomSpawnPosition(true);
+            _visual.SetActive(true);
+            transform.position = respawnPosition;
         }
     }
 }

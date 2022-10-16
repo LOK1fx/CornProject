@@ -453,6 +453,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6759936413401874663}
+  - component: {fileID: 512145298734635472}
   - component: {fileID: 8883475768200423130}
   - component: {fileID: 2530905905248449086}
   m_Layer: 7
@@ -481,8 +482,22 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -25}
-  m_SizeDelta: {x: 160, y: 25}
+  m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &512145298734635472
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4277920574029213361}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 932b877a64cbab849a90f4819e82483b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _barTransform: {fileID: 796135807645830346}
+  _character: {fileID: 7753751073176820142}
 --- !u!222 &8883475768200423130
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -504,7 +519,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.29411766}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.39215687}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -580,7 +595,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0.16509432, b: 0.3692249, a: 1}
+  m_Color: {r: 1, g: 0.35148576, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1090,9 +1105,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerType: 0
+  _firstPersonArms: {fileID: 1032693946714003410}
+  _visual: {fileID: 3741472090266011162}
+  _playerInfoRoot: {fileID: 6302734839594169881}
+  _respawnTime: 4
   _maxHealth: 100
-  _vis: {fileID: 3741472090266011162}
-  _healthBar: {fileID: 796135807645830346}
 --- !u!114 &6506388837675046873
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1108,7 +1125,6 @@ MonoBehaviour:
   _guns:
   - {fileID: 11400000, guid: 7cd83330f7e343646a88ff17d35457c6, type: 2}
   - {fileID: 11400000, guid: 6a7a5d3d8074fba4c80db9db2d5c91f5, type: 2}
-  _arms: {fileID: 1032693946714003410}
 --- !u!114 &2923838969098059435
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1202,7 +1218,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f778efebfd0ccef48bdd836ac4b4cd02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ClipsRate: 0.25
+  ClipsRate: 0.3
   _groundLayer:
     serializedVersion: 2
     m_Bits: 64
