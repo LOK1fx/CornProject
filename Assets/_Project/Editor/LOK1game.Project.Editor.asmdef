@@ -1,0 +1,18 @@
+{
+    "name": "LOK1game.Project.Editor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:543c37f40afe2b544950890ee077b172"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

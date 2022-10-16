@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: FirstPersonArms_Ar
+  m_Controller: {fileID: 9100000, guid: a33d7343594d6184e8a9951256e34fdc, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: -7361427651036151181, guid: 84bf0ddd7cb406042a08257ff98038ec, type: 3}
+    m_OverrideClip: {fileID: -8895969010986343814, guid: 885537fafc6c2df4b9db196b3b381c05, type: 3}
+  - m_OriginalClip: {fileID: 4402705440948061474, guid: 84bf0ddd7cb406042a08257ff98038ec, type: 3}
+    m_OverrideClip: {fileID: -159792356973024212, guid: 885537fafc6c2df4b9db196b3b381c05, type: 3}
+  - m_OriginalClip: {fileID: -5108021501569475325, guid: e27b7c1cc00871549b610be665993b78, type: 3}
+    m_OverrideClip: {fileID: 2334007181200203491, guid: 885537fafc6c2df4b9db196b3b381c05, type: 3}
