@@ -77,8 +77,6 @@ namespace LOK1game.Game
                     return LoadJson<T>();
                 }
 
-                Debug.Log(fullPath);
-
                 return JsonConvert.DeserializeObject<T>(json);
             }
             catch

@@ -22,6 +22,18 @@ namespace LOK1game.Weapon
         private void Start()
         {
             EquipWeapon(0);
+
+            _player.OnRespawned += OnPlayerRespawned;
+        }
+
+        private void OnDestroy()
+        {
+            _player.OnRespawned -= OnPlayerRespawned;
+        }
+
+        private void OnPlayerRespawned()
+        {
+            EquipWeapon(0);
         }
 
         public void OnInput(object sender)

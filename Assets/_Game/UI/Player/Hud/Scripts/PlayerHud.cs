@@ -29,6 +29,12 @@ namespace LOK1game.UI
             _actorInfo.text = $"Actor:{_player.photonView.OwnerActorNr}";
         }
 
+        private void OnDestroy()
+        {
+            _player.OnHealthChanged -= OnPlayerHealthChanged;
+            _player.Weapon.OnWeaponChanged -= OnPlayerWeaponChanged;
+        }
+
         private void OnPlayerWeaponChanged(Weapon.GunData data)
         {
             _weaponNameText.text = $"Gun:<b>{data.GunName}</b>";

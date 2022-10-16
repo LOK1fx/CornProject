@@ -12,6 +12,8 @@ namespace LOK1game.Player
     public class Player : Pawn, IDamagable
     {
         public event Action OnHealthChanged;
+        public event Action OnRespawned;
+        public event Action OnDeath;
 
         public PlayerWeapon Weapon { get; private set; }
         public PlayerMovement Movement { get; private set; }
@@ -132,7 +134,7 @@ namespace LOK1game.Player
         {
             Health += value;
 
-            OnHealthChanged?.Invoke();
+            HealthChanged();
         }
 
         [PunRPC]
@@ -140,13 +142,20 @@ namespace LOK1game.Player
         {
             Health -= value;
 
-            OnHealthChanged?.Invoke();
+            HealthChanged();
         }
 
         [PunRPC]
         private void SetHealth(int value)
         {
             Health = value;
+
+            HealthChanged();
+        }
+
+        private void HealthChanged()
+        {
+            Health = Mathf.Clamp(Health, 0, _maxHealth);
 
             OnHealthChanged?.Invoke();
         }
@@ -162,6 +171,8 @@ namespace LOK1game.Player
             Movement.PlayerCollider.enabled = false;
 
             _visual.SetActive(false);
+
+            OnDeath?.Invoke();
 
             var respawnPosition = GetRandomSpawnPosition(true);
 
@@ -191,6 +202,8 @@ namespace LOK1game.Player
 
             _visual.SetActive(true);
             transform.position = respawnPosition;
+
+            OnRespawned?.Invoke();
         }
     }
 }
