@@ -4,6 +4,7 @@ using UnityEngine;
 using LOK1game.Tools;
 using Photon.Pun;
 using System;
+using LOK1game.Weapon;
 
 namespace LOK1game.Player
 {
@@ -12,6 +13,7 @@ namespace LOK1game.Player
     {
         public event Action OnHealthChanged;
 
+        public PlayerWeapon Weapon { get; private set; }
         public PlayerMovement Movement { get; private set; }
         public PlayerCamera Camera { get; private set; }
         public PlayerState State { get; private set; }
@@ -32,6 +34,8 @@ namespace LOK1game.Player
             Movement = GetComponent<PlayerMovement>();
             Camera = GetComponent<PlayerCamera>();
             State = GetComponent<PlayerState>();
+            Weapon = GetComponent<PlayerWeapon>();
+            Weapon.Construct(this);
 
             Movement.OnLand += OnLand;
         }
@@ -70,6 +74,7 @@ namespace LOK1game.Player
                 return;
 
             Movement.SetAxisInput(inputAxis);
+            Weapon.OnInput(this);
 
             if (Input.GetKey(KeyCode.Space))
             {
@@ -88,6 +93,15 @@ namespace LOK1game.Player
             if(Input.GetKeyDown(KeyCode.K))
             {
                 photonView.RPC(nameof(Death), RpcTarget.All, new object[1] { _maxHealth });
+            }
+            if(Input.GetKeyDown(KeyCode.U))
+            {
+                photonView.RPC(nameof(RemoveHealth), RpcTarget.All, new object[1] { 15 });
+
+                if(Health <= 0)
+                {
+                    photonView.RPC(nameof(Death), RpcTarget.All, new object[1] { 15 });
+                }
             }
         }
 
@@ -157,7 +171,11 @@ namespace LOK1game.Player
         [PunRPC]
         private void Respawn(float respawnPositionX, float respawnPositionY, float respawnPositionZ) //Photon RPC don't serialize/deserialize Vector3 type
         {
-            StartCoroutine(RespawnRoutine(new Vector3(respawnPositionX, respawnPositionY, respawnPositionZ)));
+            var respawnPosition = new Vector3(respawnPositionX, respawnPositionY, respawnPositionZ);
+
+            Debug.DrawRay(respawnPosition, Vector3.up * 2f, Color.yellow, _respawnTime + 1f, false);
+
+            StartCoroutine(RespawnRoutine(respawnPosition));
         }
 
         private IEnumerator RespawnRoutine(Vector3 respawnPosition)

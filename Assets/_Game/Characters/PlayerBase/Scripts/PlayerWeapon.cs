@@ -1,24 +1,22 @@
 using UnityEngine;
-using LOK1game.Player;
 using System.Collections.Generic;
+using System;
 
 namespace LOK1game.Weapon
 {
-    [RequireComponent(typeof(Player.Player), typeof(PlayerInputProvider))]
     public class PlayerWeapon : MonoBehaviour, IInputabe
     {
+        public event Action<GunData> OnWeaponChanged;
+
         [SerializeField] private List<GunData> _guns;
 
         private IWeapon _currentWeapon;
         private int _currentWeaponIndex;
         private Player.Player _player;
-        private PlayerInputProvider _inputProvider;
 
-        private void Awake()
+        public void Construct(Player.Player player)
         {
-            _player = GetComponent<Player.Player>();
-            _inputProvider = GetComponent<PlayerInputProvider>();
-            _inputProvider.Add(this);
+            _player = player;
         }
 
         private void Start()
@@ -73,6 +71,8 @@ namespace LOK1game.Weapon
             _player.FirstPersonArms.Animator.Play("Equip", 0, 0f);
 
             _currentWeapon = gun.GetComponent<IWeapon>();
+
+            OnWeaponChanged?.Invoke(data);
         }
 
         public void EquipWeapon(int index)

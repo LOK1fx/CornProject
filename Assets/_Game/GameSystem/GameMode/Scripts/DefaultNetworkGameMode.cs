@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using Photon.Pun;
+using LOK1game.UI;
 
 namespace LOK1game.Game
 {
@@ -13,11 +14,15 @@ namespace LOK1game.Game
             State = EGameModeState.Starting;
 
             SpawnGameModeObject(CameraPrefab);
-            SpawnGameModeObject(UiPrefab);   
 
+            var ui = SpawnGameModeObject(UiPrefab);   
             var player = PhotonNetwork.Instantiate(PlayerPrefab.name, GetRandomSpawnPointPosition(), Quaternion.identity);
+            var playerController = CreatePlayerController(player.GetComponent<Pawn>());
 
-            CreatePlayerController(player.GetComponent<Pawn>());
+            if (ui.TryGetComponent<IPlayerHud>(out var playerHud))
+            {
+                playerHud.BindToPlayer(player.GetComponent<Player.Player>(), playerController);
+            }
 
             State = EGameModeState.Started;
 
