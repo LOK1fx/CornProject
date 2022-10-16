@@ -1034,6 +1034,7 @@ GameObject:
   - component: {fileID: 4243472633381124341}
   - component: {fileID: 4995800265851224261}
   - component: {fileID: 4585055418127408643}
+  - component: {fileID: 8265920128600577731}
   - component: {fileID: 2936810834599048445}
   - component: {fileID: 8071072992230570558}
   - component: {fileID: 7611706474290867002}
@@ -1145,6 +1146,7 @@ MonoBehaviour:
     m_Bits: 64
   _groundCheckerPosition: {x: 0, y: 0.17, z: 0}
   _groundCheckerSize: {x: 0.35, y: 0.25, z: 0.35}
+  _movementThreshold: 4
 --- !u!114 &4995800265851224261
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1188,6 +1190,24 @@ MonoBehaviour:
     m_Bits: 64
   _requiredSpeed: 1
   _speedAfterVaultMultiplier: {x: 0.4, y: 0, z: 0.4}
+--- !u!114 &8265920128600577731
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7611706474290867000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f778efebfd0ccef48bdd836ac4b4cd02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ClipsRate: 0.25
+  _groundLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  _footstepsCollection:
+  - {fileID: 11400000, guid: bb0ffa730db34d74e9a05f4978269390, type: 2}
 --- !u!114 &2936810834599048445
 MonoBehaviour:
   m_ObjectHideFlags: 0

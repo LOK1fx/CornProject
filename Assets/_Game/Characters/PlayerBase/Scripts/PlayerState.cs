@@ -14,6 +14,7 @@ namespace LOK1game.Player
         [SerializeField] private LayerMask _groundMask;
         [SerializeField] private Vector3 _groundCheckerPosition;
         [SerializeField] private Vector3 _groundCheckerSize;
+        [SerializeField] private float _movementThreshold = 4f;
 
         private PlayerMovement _playerMovement;
 
@@ -38,6 +39,14 @@ namespace LOK1game.Player
             {
                 OnGround = false;
             }
+        }
+
+        public bool IsMoving()
+        {
+            if(_playerMovement.Rigidbody.velocity.magnitude > _movementThreshold)
+                return true;
+
+            return false;
         }
 
         private void OnStopCrouching()

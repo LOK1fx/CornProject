@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d307e51bddc174d41954535df85159be, type: 3}
+  m_Name: Default
+  m_EditorClassIdentifier: 
+  _terrainLayerName: None
+  _footstepPrefab: {fileID: 7253913058478473854, guid: 2bbfe552d87b22e4b955eb2169829437, type: 3}
+  _footstepsClips:
+  - {fileID: 8300000, guid: dfae83d77fa15714f896c1dbf9feeb91, type: 3}
+  - {fileID: 8300000, guid: 1ebe72d50edea7949b8123a972311fde, type: 3}
+  - {fileID: 8300000, guid: 5a95aa958b672af469f082e6386a1a0e, type: 3}
+  - {fileID: 8300000, guid: 29e4c07300f49e04ca648264344d1158, type: 3}
+  _jumpClip: {fileID: 0}
+  _landClip: {fileID: 0}
