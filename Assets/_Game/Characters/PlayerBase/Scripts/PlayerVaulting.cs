@@ -66,6 +66,9 @@ namespace LOK1game.Player
             var landPos = hit.point;
             var height = landPos.y - transform.position.y;
 
+            if (height > 1f)
+                _player.FirstPersonArms.Animator.Play("Climb", 0, 0f);
+
             _player.Camera.GetCameraTransform().localPosition = transform.position - landPos + _player.Camera.DesiredPosition;
 
             transform.position = landPos;

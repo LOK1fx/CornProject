@@ -994,6 +994,7 @@ MonoBehaviour:
   _healthbarText: {fileID: 1942608032903781664}
   _actorInfo: {fileID: 4443588103962378185}
   _weaponNameText: {fileID: 2310709499044345474}
+  _weaponAmmoText: {fileID: 8802842431428769343}
 --- !u!1 &6697793459458844532
 GameObject:
   m_ObjectHideFlags: 0

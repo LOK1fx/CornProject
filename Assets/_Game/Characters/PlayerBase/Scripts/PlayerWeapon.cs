@@ -9,6 +9,7 @@ namespace LOK1game.Weapon
         public event Action<GunData> OnWeaponChanged;
 
         [SerializeField] private List<GunData> _guns;
+        [SerializeField] private Transform _weaponHolder;
 
         private IWeapon _currentWeapon;
         private int _currentWeaponIndex;
@@ -24,16 +25,13 @@ namespace LOK1game.Weapon
             EquipWeapon(0);
 
             _player.OnRespawned += OnPlayerRespawned;
+            _player.OnDeath += OnPlayerDeath;
         }
 
         private void OnDestroy()
         {
             _player.OnRespawned -= OnPlayerRespawned;
-        }
-
-        private void OnPlayerRespawned()
-        {
-            EquipWeapon(0);
+            _player.OnDeath -= OnPlayerDeath;
         }
 
         public void OnInput(object sender)
@@ -41,9 +39,19 @@ namespace LOK1game.Weapon
             if (_player.IsDead)
                 return;
 
-            if(Input.GetKeyDown(KeyCode.Mouse0))
+            if(_guns[_currentWeaponIndex].Auto)
             {
-                Shoot();
+                if (Input.GetKey(KeyCode.Mouse0))
+                {
+                    Shoot();
+                }
+            }
+            else
+            {
+                if (Input.GetKeyDown(KeyCode.Mouse0))
+                {
+                    Shoot();
+                }
             }
 
             if(Input.GetKeyDown(KeyCode.Alpha1))
@@ -58,21 +66,17 @@ namespace LOK1game.Weapon
             {
                 EquipWeapon(2);
             }
-        }
 
-        private void Shoot()
-        {
-            if (_currentWeapon.CanBeUsed)
+            if(Input.GetKeyDown(KeyCode.F))
             {
-                _currentWeapon.Use(_player);
-                _player.FirstPersonArms.Animator.Play("Shoot", 0, 0f);
+                _player.FirstPersonArms.Animator.Play("Inspect", 0, 0f);
             }
         }
 
         public void EquipWeapon(GunData data)
         {
             if (data.WeaponId == EWeaponId.None)
-                throw new System.Exception($"WeaponData {data}' ID is setted to {data.WeaponId}!!");
+                throw new Exception($"WeaponData {data}' ID is setted to {data.WeaponId}!!");
 
             _player.FirstPersonArms.ClearRightHand();
 
@@ -92,6 +96,26 @@ namespace LOK1game.Weapon
             _currentWeaponIndex = index;
 
             EquipWeapon(_guns[index]);
+        }
+
+        private void Shoot()
+        {
+            if (_currentWeapon.CanBeUsed)
+            {
+                _currentWeapon.Use(_player);
+                _player.FirstPersonArms.Animator.Play("Shoot", 0, 0f);
+            }
+        }
+
+        private void OnPlayerRespawned()
+        {
+            _weaponHolder.gameObject.SetActive(true);
+            EquipWeapon(0);
+        }
+
+        private void OnPlayerDeath()
+        {
+            _weaponHolder.gameObject.SetActive(false);
         }
     }
 }

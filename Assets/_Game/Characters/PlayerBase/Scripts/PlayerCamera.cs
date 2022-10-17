@@ -31,6 +31,8 @@ namespace LOK1game.Player
         private Vector3 _cameraLerpOffset;
 
         [SerializeField] private Transform _recoilCamera;
+        [SerializeField] private Transform _animationCamera;
+        [SerializeField] private Vector3 _animationCameraRotationOffset;
         [SerializeField] private float _recoilCameraRotationSpeed;
         [SerializeField] private float _recoilCameraReturnSpeed;
 
@@ -39,6 +41,13 @@ namespace LOK1game.Player
 
         private float _xRotation;
         private float _yRotation;
+
+        private Player _player;
+
+        public void Construct(Player player)
+        {
+            _player = player;
+        }
 
         private void Start()
         {
@@ -67,6 +76,11 @@ namespace LOK1game.Player
 
             _cameraTransform.localPosition = Vector3.Lerp(_cameraTransform.localPosition, DesiredPosition + _cameraLerpOffset, Time.deltaTime * _cameraOffsetResetSpeed);
             _cameraLerpOffset = Vector3.Lerp(_cameraLerpOffset, Vector3.zero, Time.deltaTime * _cameraOffsetResetSpeed);
+
+            var animationRotation = _player.FirstPersonArms.CameraSocket.localRotation;
+
+            _animationCamera.localRotation = new Quaternion(animationRotation.x, animationRotation.z, animationRotation.y, animationRotation.w)
+                * Quaternion.Euler(_animationCameraRotationOffset);
         }
 
         private void FixedUpdate()
@@ -91,7 +105,7 @@ namespace LOK1game.Player
                 Cursor.visible = true;
                 Cursor.lockState = CursorLockMode.None;
             }
-            else
+            else if(Input.GetKeyDown(KeyCode.Escape) && Cursor.lockState == CursorLockMode.None)
             {
                 Cursor.visible = false;
                 Cursor.lockState = CursorLockMode.Locked;
@@ -100,7 +114,7 @@ namespace LOK1game.Player
             var x = 0f;
             var y = 0f;
 
-            if (!Application.isMobilePlatform)
+            if (!Application.isMobilePlatform && Cursor.lockState == CursorLockMode.Locked)
             {
                 x = Input.GetAxis("Mouse X");
                 y = Input.GetAxis("Mouse Y");

@@ -59,11 +59,6 @@ namespace LOK1game.Player
             _oldPosition = transform.position;
         }
 
-        private void Start()
-        {
-            Rigidbody.isKinematic = !photonView.IsMine;
-        }
-
         private void Update()
         {
             UpdateCooldowns();
@@ -178,15 +173,18 @@ namespace LOK1game.Player
 
         public void StopCrouch()
         {
-            if (Physics.Raycast(transform.position, Vector3.up, out RaycastHit hit, 2f, _groundMask, QueryTriggerInteraction.Ignore))
-            {
-                return;
-            }
-
             PlayerCollider.height = _defaultPlayerHeight;
             PlayerCollider.center = Vector3.up;
 
             OnStopCrouch?.Invoke();
+        }
+
+        public bool CanStand()
+        {
+            if (Physics.Raycast(transform.position, Vector3.up, out RaycastHit hit, 2f, _groundMask, QueryTriggerInteraction.Ignore))
+                return false;
+
+            return true;
         }
 
         public bool CanJump()

@@ -12,6 +12,11 @@ namespace LOK1game.Character.Generic
             _character.OnHealthChanged += OnCharacterHealthChanged;
         }
 
+        private void OnDestroy()
+        {
+            _character.OnHealthChanged -= OnCharacterHealthChanged;
+        }
+
         private void OnCharacterHealthChanged()
         {
             _barTransform.localScale = new Vector3(_character.Health * 0.01f, 1f, 1f);

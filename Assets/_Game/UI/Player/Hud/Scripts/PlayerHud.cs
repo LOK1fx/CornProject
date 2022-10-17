@@ -9,6 +9,7 @@ namespace LOK1game.UI
         [SerializeField] private TextMeshProUGUI _healthbarText;
         [SerializeField] private TextMeshProUGUI _actorInfo;
         [SerializeField] private TextMeshProUGUI _weaponNameText;
+        [SerializeField] private TextMeshProUGUI _weaponAmmoText;
 
         private Player.Player _player;
         private PlayerController _playerController;
@@ -38,6 +39,7 @@ namespace LOK1game.UI
         private void OnPlayerWeaponChanged(Weapon.GunData data)
         {
             _weaponNameText.text = $"Gun:<b>{data.GunName}</b>";
+            _weaponAmmoText.text = $"{data.ClipAmmo}|{data.Ammo}";
         }
 
         private void OnPlayerHealthChanged()

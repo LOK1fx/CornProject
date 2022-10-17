@@ -22,4 +22,4 @@ MonoBehaviour:
   _damage: 12
   _shootDistance: 100
   _recoil: {x: 4, y: 3, z: 0}
-  _fireRate: 0.25
+  _fireRate: 12

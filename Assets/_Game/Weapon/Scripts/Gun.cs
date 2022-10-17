@@ -8,6 +8,9 @@ namespace LOK1game.Weapon
         {
             base.Use(sender);
 
+            if (CanBeUsed == false)
+                return;
+
             sender.Camera.AddCameraOffset(-sender.Camera.GetCameraTransform().forward * 0.1f);
             sender.Camera.TriggerRecoil(Data.Recoil);
         }

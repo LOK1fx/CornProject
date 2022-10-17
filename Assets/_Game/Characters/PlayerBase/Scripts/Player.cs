@@ -5,6 +5,7 @@ using LOK1game.Tools;
 using Photon.Pun;
 using System;
 using LOK1game.Weapon;
+using Cinemachine;
 
 namespace LOK1game.Player
 {
@@ -28,6 +29,7 @@ namespace LOK1game.Player
         [SerializeField] private GameObject _playerInfoRoot;
 
         [Space]
+        [SerializeField] private GameObject _freeCameraPrefab;
         [SerializeField] private float _respawnTime;
         [SerializeField] private int _maxHealth = 100;
 
@@ -35,11 +37,19 @@ namespace LOK1game.Player
         {
             Movement = GetComponent<PlayerMovement>();
             Camera = GetComponent<PlayerCamera>();
+            Camera.Construct(this);
             State = GetComponent<PlayerState>();
             Weapon = GetComponent<PlayerWeapon>();
             Weapon.Construct(this);
 
             Movement.OnLand += OnLand;
+            Movement.OnJump += OnJump;
+        }
+
+        private void OnDestroy()
+        {
+            Movement.OnLand -= OnLand;
+            Movement.OnJump -= OnJump;
         }
 
         private void Start()
@@ -49,6 +59,7 @@ namespace LOK1game.Player
             if(IsLocal == false)
             {
                 gameObject.layer = 7;
+                Movement.Rigidbody.isKinematic = true;
             }
             else
             {
@@ -65,51 +76,40 @@ namespace LOK1game.Player
 
         public override void OnInput(object sender)
         {
-            if (IsLocal == false)
+            if (IsLocal == false || IsDead)
                 return;
 
             var inputAxis = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
 
             Camera.OnInput(this);
-
-            if (IsDead)
-                return;
-
             Movement.SetAxisInput(inputAxis);
             Weapon.OnInput(this);
 
             if (Input.GetKey(KeyCode.Space))
-            {
                 Movement.Jump();
-            }
 
             if(Input.GetKeyDown(KeyCode.LeftControl))
-            {
                 Movement.StartCrouch();
-            }
+
             if(Input.GetKeyUp(KeyCode.LeftControl))
-            {
-                Movement.StopCrouch();
-            }
+                if(Movement.CanStand())
+                    Movement.StopCrouch();
 
             if(Input.GetKeyDown(KeyCode.K))
-            {
-                photonView.RPC(nameof(Death), RpcTarget.All, new object[1] { _maxHealth });
-            }
-            if(Input.GetKeyDown(KeyCode.U))
-            {
-                photonView.RPC(nameof(RemoveHealth), RpcTarget.All, new object[1] { 15 });
+                photonView.RPC(nameof(RemoveHealth), RpcTarget.All, new object[1] { _maxHealth });
 
-                if(Health <= 0)
-                {
-                    photonView.RPC(nameof(Death), RpcTarget.All, new object[1] { 15 });
-                }
-            }
+            if(Input.GetKeyDown(KeyCode.U))
+                photonView.RPC(nameof(RemoveHealth), RpcTarget.All, new object[1] { 15 });
         }
 
         private void OnLand()
         {
-            Camera.AddCameraOffset(Vector3.down);
+            Camera.AddCameraOffset(Vector3.down * 0.5f);
+        }
+
+        private void OnJump()
+        {
+            Camera.AddCameraOffset(Vector3.up * 0.35f);
         }
 
         public void TakeDamage(Damage damage)
@@ -122,11 +122,6 @@ namespace LOK1game.Player
             PopupText.Spawn<PopupText3D>(transform.position + Vector3.up * 2, transform, text);
 
             photonView.RPC(nameof(RemoveHealth), RpcTarget.All, new object[1] { damage.Value });
-
-            if(Health <= 0)
-            {
-                photonView.RPC(nameof(Death), RpcTarget.All, new object[1] { damage.Value });
-            }
         }
 
         [PunRPC]
@@ -141,6 +136,9 @@ namespace LOK1game.Player
         private void RemoveHealth(int value)
         {
             Health -= value;
+
+            if(Health <= 0)
+                photonView.RPC(nameof(Death), RpcTarget.All);
 
             HealthChanged();
         }
@@ -161,22 +159,43 @@ namespace LOK1game.Player
         }
 
         [PunRPC]
-        private void Death(int damage)
+        private void Death()
         {
             if (IsDead)
                 return;
+
+            if(IsLocal)
+                StartCoroutine(FreecamRoutine());
 
             IsDead = true;
             Movement.Rigidbody.isKinematic = true;
             Movement.PlayerCollider.enabled = false;
 
             _visual.SetActive(false);
+            _playerInfoRoot.SetActive(false);
 
             OnDeath?.Invoke();
 
-            var respawnPosition = GetRandomSpawnPosition(true);
+            if(IsLocal)
+            {
+                var respawnPosition = GetRandomSpawnPosition(true);
 
-            photonView.RPC(nameof(Respawn), RpcTarget.All, new object[3] { respawnPosition.x, respawnPosition.y, respawnPosition.z } );
+                photonView.RPC(nameof(Respawn), RpcTarget.All, new object[3] { respawnPosition.x, respawnPosition.y, respawnPosition.z });
+            }
+        }
+
+        private IEnumerator FreecamRoutine()
+        {
+            var cameraTransform = Camera.GetCameraTransform();
+            var freeCamera = Instantiate(_freeCameraPrefab, cameraTransform.position, cameraTransform.rotation);
+
+            if (freeCamera.TryGetComponent<Rigidbody>(out var rigidbody))
+                rigidbody.velocity = Movement.Rigidbody.velocity;
+
+            yield return new WaitForSeconds(_respawnTime);
+
+            freeCamera.GetComponent<CinemachineVirtualCamera>().Priority = 0;
+            Destroy(freeCamera, 0.5f);
         }
 
         [PunRPC]
@@ -194,9 +213,21 @@ namespace LOK1game.Player
             yield return new WaitForSeconds(_respawnTime);
 
             IsDead = false;
-            Movement.Rigidbody.isKinematic = false;
+
+            if(IsLocal)
+            {
+                Movement.Rigidbody.isKinematic = false;
+            }
+            else
+            {
+                _playerInfoRoot.SetActive(true);
+            }
+
             Movement.PlayerCollider.enabled = true;
             Movement.Rigidbody.velocity = Vector3.zero;
+
+            if (State.IsCrouching)
+                Movement.StopCrouch();
 
             SetHealth(_maxHealth);
 

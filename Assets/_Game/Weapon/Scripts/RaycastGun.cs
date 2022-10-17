@@ -11,16 +11,29 @@ namespace LOK1game.Weapon
 
         protected AudioSource Audio { get; private set; }
 
-
         [SerializeField] private LayerMask _shootableLayer;
         [SerializeField] private GunData _data;
 
         [Header("Audio")]
         [SerializeField] private AudioClip _shootClip;
 
+        private float _timeToNextShoot;
+
         private void Awake()
         {
             Audio = GetComponent<AudioSource>();
+        }
+
+        private void Update()
+        {
+            if (Time.time > _timeToNextShoot)
+            {
+                CanBeUsed = true;
+            }
+            else
+            {
+                CanBeUsed = false;
+            }
         }
 
         public abstract void AltUse(Player.Player sender);
@@ -35,7 +48,7 @@ namespace LOK1game.Weapon
 
             if (Physics.Raycast(camera.position, camera.forward, out var hit, _data.ShootDistance, _shootableLayer, QueryTriggerInteraction.Ignore))
             {
-                if(hit.collider.gameObject.TryGetComponent<IDamagable>(out var damagable))
+                if (hit.collider.gameObject.TryGetComponent<IDamagable>(out var damagable))
                 {
                     var damage = new Damage(_data.Damage, EDamageType.Normal, sender);
 
@@ -44,6 +57,7 @@ namespace LOK1game.Weapon
             }
 
             Audio.PlayOneShot(_shootClip);
+            _timeToNextShoot = Time.time + 1f / Data.FireRate;
         }
     }
 }

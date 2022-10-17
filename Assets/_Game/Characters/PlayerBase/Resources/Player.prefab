@@ -31,7 +31,7 @@ Transform:
   m_Children:
   - {fileID: 1139924412191517214}
   m_Father: {fileID: 7611706475503584406}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8689817396809428231
 MonoBehaviour:
@@ -386,6 +386,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7611706475503584406}
+  - {fileID: 5112731614254775589}
   m_Father: {fileID: 7611706473415297595}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -635,14 +636,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5019805730282040343}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6437821136484101019}
-  m_Father: {fileID: 7611706475503584406}
-  m_RootOrder: 0
+  m_Father: {fileID: 3808923943690429047}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6302734839594169881
 GameObject:
@@ -1108,6 +1109,7 @@ MonoBehaviour:
   _firstPersonArms: {fileID: 1032693946714003410}
   _visual: {fileID: 3741472090266011162}
   _playerInfoRoot: {fileID: 6302734839594169881}
+  _freeCameraPrefab: {fileID: 2428400008581212475, guid: d72f275c0cca8a444ba1b1783d707964, type: 3}
   _respawnTime: 4
   _maxHealth: 100
 --- !u!114 &6506388837675046873
@@ -1125,6 +1127,7 @@ MonoBehaviour:
   _guns:
   - {fileID: 11400000, guid: 7cd83330f7e343646a88ff17d35457c6, type: 2}
   - {fileID: 11400000, guid: 6a7a5d3d8074fba4c80db9db2d5c91f5, type: 2}
+  _weaponHolder: {fileID: 5112731614254775589}
 --- !u!114 &2923838969098059435
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1187,8 +1190,10 @@ MonoBehaviour:
   DesiredPosition: {x: 0, y: 0, z: 0}
   _cameraOffsetResetSpeed: 12
   _recoilCamera: {fileID: 3808923943690429047}
-  _recoilCameraRotationSpeed: 21
-  _recoilCameraReturnSpeed: 21
+  _animationCamera: {fileID: 7611706475503584406}
+  _animationCameraRotationOffset: {x: -90, y: 0, z: 0}
+  _recoilCameraRotationSpeed: 18
+  _recoilCameraReturnSpeed: 12
 --- !u!114 &4585055418127408643
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1303,7 +1308,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7611706475503584406}
   m_Layer: 8
-  m_Name: WeaponRecoilCamera
+  m_Name: AnimationCamera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1321,7 +1326,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 5112731614254775589}
   - {fileID: 1512892527193222580}
   m_Father: {fileID: 3808923943690429047}
   m_RootOrder: 0
