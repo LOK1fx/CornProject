@@ -26,6 +26,8 @@ namespace LOK1game.UI
         {
             _player.OnHealthChanged += OnPlayerHealthChanged;
             _player.Weapon.OnWeaponChanged += OnPlayerWeaponChanged;
+            _player.Weapon.OnAttack += UpdateAmmoCounter;
+            _player.Weapon.OnReloaded += UpdateAmmoCounter;
 
             _actorInfo.text = $"Actor:{_player.photonView.OwnerActorNr}";
         }
@@ -34,12 +36,20 @@ namespace LOK1game.UI
         {
             _player.OnHealthChanged -= OnPlayerHealthChanged;
             _player.Weapon.OnWeaponChanged -= OnPlayerWeaponChanged;
+            _player.Weapon.OnAttack -= UpdateAmmoCounter;
+            _player.Weapon.OnReloaded -= UpdateAmmoCounter;
         }
 
         private void OnPlayerWeaponChanged(Weapon.GunData data)
         {
             _weaponNameText.text = $"Gun:<b>{data.GunName}</b>";
-            _weaponAmmoText.text = $"{data.ClipAmmo}|{data.Ammo}";
+
+            UpdateAmmoCounter(data);
+        }
+
+        private void UpdateAmmoCounter(Weapon.GunData data)
+        {
+            _weaponAmmoText.text = $"{data.Clip}|{data.Stash}";
         }
 
         private void OnPlayerHealthChanged()

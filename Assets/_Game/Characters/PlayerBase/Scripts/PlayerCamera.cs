@@ -24,7 +24,7 @@ namespace LOK1game.Player
         [Space]
         [SerializeField] private float _defaultFov = 65f;
 
-        [HideInInspector] public Vector3 DesiredPosition;
+        public Vector3 DesiredPosition;
 
         [SerializeField] private float _cameraOffsetResetSpeed = 7f;
 

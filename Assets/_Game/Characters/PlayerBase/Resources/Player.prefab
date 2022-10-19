@@ -63,6 +63,13 @@ MonoBehaviour:
     LensShift: {x: 0, y: 0}
     GateFit: 2
     m_SensorSize: {x: 1, y: 1}
+    Iso: 200
+    ShutterSpeed: 0.005
+    Aperture: 16
+    BladeCount: 5
+    Curvature: {x: 2, y: 11}
+    BarrelClipping: 0.25
+    Anamorphism: 0
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -437,9 +444,6 @@ LODGroup:
   m_AnimateCrossFading: 1
   m_LastLODIsBillboard: 0
   m_LODs:
-  - screenRelativeHeight: 0.9385912
-    fadeTransitionWidth: 0
-    renderers: []
   - screenRelativeHeight: 0.00013854483
     fadeTransitionWidth: 0
     renderers:
@@ -596,7 +600,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0.35148576, b: 0, a: 1}
+  m_Color: {r: 1, g: 0.13820723, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -622,6 +626,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5112731614254775589}
+  - component: {fileID: 2965426661285374168}
   m_Layer: 8
   m_Name: WeaponHolder
   m_TagString: Untagged
@@ -645,6 +650,21 @@ Transform:
   m_Father: {fileID: 3808923943690429047}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2965426661285374168
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5019805730282040343}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ef0ff5a315898342987ea2e1af2c9f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _speed: 21
+  _returnSpeed: 10
+  _multiplier: {x: 0.2, y: 0.2, z: 0.05}
 --- !u!1 &6302734839594169881
 GameObject:
   m_ObjectHideFlags: 0
@@ -1012,7 +1032,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 73c176f402d2c2f4d929aa5da7585d17, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1105,10 +1125,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab3eb5f4168114c48b7d761f6bb22707, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerType: 0
+  playerType: 0
+  _localOnlyObjects:
+  - {fileID: 7611706473434796585}
+  - {fileID: 8945867937079733949}
+  _worldOnlyObjects:
+  - {fileID: 6638691204746156153}
   _firstPersonArms: {fileID: 1032693946714003410}
   _visual: {fileID: 3741472090266011162}
   _playerInfoRoot: {fileID: 6302734839594169881}
+  _crouchEyePosition: {x: 0, y: 1.25, z: 0}
   _freeCameraPrefab: {fileID: 2428400008581212475, guid: d72f275c0cca8a444ba1b1783d707964, type: 3}
   _respawnTime: 4
   _maxHealth: 100
@@ -1124,7 +1150,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 962c2913f815ac242ba5400e46d47402, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _guns:
+  _loadout:
   - {fileID: 11400000, guid: 7cd83330f7e343646a88ff17d35457c6, type: 2}
   - {fileID: 11400000, guid: 6a7a5d3d8074fba4c80db9db2d5c91f5, type: 2}
   _weaponHolder: {fileID: 5112731614254775589}
@@ -1401,5 +1427,10 @@ MonoBehaviour:
 --- !u!4 &2734777917715317699 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8375014047595712527, guid: 506e7c624a058544ca38fb2f040da9dd, type: 3}
+  m_PrefabInstance: {fileID: 5893493245007647692}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8945867937079733949 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3310145297961319793, guid: 506e7c624a058544ca38fb2f040da9dd, type: 3}
   m_PrefabInstance: {fileID: 5893493245007647692}
   m_PrefabAsset: {fileID: 0}

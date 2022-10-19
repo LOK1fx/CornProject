@@ -13,9 +13,9 @@ namespace LOK1game
             }
         }
 
-        public EPlayerType PlayerType => _playerType;
+        public EPlayerType PlayerType => playerType;
 
-        [SerializeField] private EPlayerType _playerType;
+        [SerializeField] protected EPlayerType playerType;
 
         private Controller _controller;
 

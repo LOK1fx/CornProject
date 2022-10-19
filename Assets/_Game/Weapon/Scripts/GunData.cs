@@ -18,6 +18,7 @@ namespace LOK1game.Weapon
         public float ShootDistance => _shootDistance;
         public Vector3 Recoil => _recoil;
         public float FireRate => _fireRate;
+        public float ReloadTime => _reloadTime;
 
 
         [SerializeField] private EWeaponId _weaponId = EWeaponId.None;
@@ -34,5 +35,33 @@ namespace LOK1game.Weapon
         [SerializeField] private float _shootDistance = 100f;
         [SerializeField] private Vector3 _recoil = Vector3.right;
         [SerializeField] private float _fireRate = 0.25f;
+        [SerializeField] private float _reloadTime = 1f;
+
+        [HideInInspector] public int Stash { get; private set; }
+        [HideInInspector] public int Clip { get; private set; }
+
+        public void InitializeAmmo()
+        {
+            Stash = _ammo;
+            Clip = _clipAmmo;
+        }
+
+        public void Reload()
+        {
+            Stash += Clip;
+            Clip = Mathf.Min(_clipAmmo, Stash);
+            Stash -= Clip;
+        }
+
+        public bool TryFireBullet()
+        {
+            if (Clip > 0)
+            {
+                Clip -= 1;
+                return true;
+            }
+            
+            return false;
+        }
     }
 }

@@ -1,14 +1,19 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System;
+using System.Collections;
 
 namespace LOK1game.Weapon
 {
     public class PlayerWeapon : MonoBehaviour, IInputabe
     {
         public event Action<GunData> OnWeaponChanged;
+        public event Action<GunData> OnAttack;
+        public event Action<GunData> OnReloaded;
 
-        [SerializeField] private List<GunData> _guns;
+        public bool IsReloading { get; private set; }
+
+        [SerializeField] private List<GunData> _loadout;
         [SerializeField] private Transform _weaponHolder;
 
         private IWeapon _currentWeapon;
@@ -22,6 +27,7 @@ namespace LOK1game.Weapon
 
         private void Start()
         {
+            InitializeLoadoutAmmo();
             EquipWeapon(0);
 
             _player.OnRespawned += OnPlayerRespawned;
@@ -39,18 +45,18 @@ namespace LOK1game.Weapon
             if (_player.IsDead)
                 return;
 
-            if(_guns[_currentWeaponIndex].Auto)
+            if(_loadout[_currentWeaponIndex].Auto)
             {
                 if (Input.GetKey(KeyCode.Mouse0))
                 {
-                    Shoot();
+                    Attack();
                 }
             }
             else
             {
                 if (Input.GetKeyDown(KeyCode.Mouse0))
                 {
-                    Shoot();
+                    Attack();
                 }
             }
 
@@ -70,6 +76,11 @@ namespace LOK1game.Weapon
             if(Input.GetKeyDown(KeyCode.F))
             {
                 _player.FirstPersonArms.Animator.Play("Inspect", 0, 0f);
+            }
+            if(Input.GetKeyDown(KeyCode.R))
+            {
+                if(IsReloading == false)
+                    StartCoroutine(ReloadRoutine());
             }
         }
 
@@ -95,20 +106,40 @@ namespace LOK1game.Weapon
         {
             _currentWeaponIndex = index;
 
-            EquipWeapon(_guns[index]);
+            EquipWeapon(_loadout[index]);
         }
 
-        private void Shoot()
+        private IEnumerator ReloadRoutine()
         {
-            if (_currentWeapon.CanBeUsed)
+            var weapon = _loadout[_currentWeaponIndex];
+            IsReloading = true;
+
+            yield return new WaitForSeconds(_loadout[_currentWeaponIndex].ReloadTime);
+
+            weapon.Reload();
+
+            IsReloading = false;
+            OnReloaded?.Invoke(weapon);
+        }
+
+        private void Attack()
+        {
+            if (_loadout[_currentWeaponIndex].Clip == 0)
+                StartCoroutine(ReloadRoutine());
+
+            if (_currentWeapon.CanBeUsed && _loadout[_currentWeaponIndex].TryFireBullet() && IsReloading == false)
             {
                 _currentWeapon.Use(_player);
                 _player.FirstPersonArms.Animator.Play("Shoot", 0, 0f);
+
+                OnAttack?.Invoke(_loadout[_currentWeaponIndex]);
             }
         }
 
         private void OnPlayerRespawned()
         {
+            InitializeLoadoutAmmo();
+
             _weaponHolder.gameObject.SetActive(true);
             EquipWeapon(0);
         }
@@ -116,6 +147,14 @@ namespace LOK1game.Weapon
         private void OnPlayerDeath()
         {
             _weaponHolder.gameObject.SetActive(false);
+        }
+
+        private void InitializeLoadoutAmmo()
+        {
+            foreach (var weapon in _loadout)
+            {
+                weapon.InitializeAmmo();
+            }
         }
     }
 }

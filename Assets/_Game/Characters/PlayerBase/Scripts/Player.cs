@@ -24,9 +24,14 @@ namespace LOK1game.Player
         public int Health { get; private set; }
         public bool IsDead { get; private set; }
 
+        [SerializeField] private GameObject[] _localOnlyObjects;
+        [SerializeField] private GameObject[] _worldOnlyObjects;
         [SerializeField] private FirstPersonArms _firstPersonArms;
         [SerializeField] private GameObject _visual;
         [SerializeField] private GameObject _playerInfoRoot;
+        [SerializeField] private Vector3 _crouchEyePosition;
+
+        private Vector3 _defaultEyePosition;
 
         [Space]
         [SerializeField] private GameObject _freeCameraPrefab;
@@ -44,12 +49,18 @@ namespace LOK1game.Player
 
             Movement.OnLand += OnLand;
             Movement.OnJump += OnJump;
+            Movement.OnStartCrouch += OnStartCrouching;
+            Movement.OnStopCrouch += OnStopCrouching;
+
+            _defaultEyePosition = Camera.GetCameraTransform().localPosition;
         }
 
         private void OnDestroy()
         {
             Movement.OnLand -= OnLand;
             Movement.OnJump -= OnJump;
+            Movement.OnStartCrouch -= OnStartCrouching;
+            Movement.OnStopCrouch -= OnStopCrouching;
         }
 
         private void Start()
@@ -60,10 +71,22 @@ namespace LOK1game.Player
             {
                 gameObject.layer = 7;
                 Movement.Rigidbody.isKinematic = true;
+                playerType = EPlayerType.World;
+
+                foreach (var gameObject in _localOnlyObjects)
+                {
+                    gameObject.SetActive(false);
+                }
             }
             else
             {
                 _playerInfoRoot.SetActive(false);
+                playerType = EPlayerType.View;
+
+                foreach (var gameObject in _worldOnlyObjects)
+                {
+                    gameObject.SetActive(false);
+                }
             }
         }
 
@@ -110,6 +133,16 @@ namespace LOK1game.Player
         private void OnJump()
         {
             Camera.AddCameraOffset(Vector3.up * 0.35f);
+        }
+
+        private void OnStartCrouching()
+        {
+            Camera.DesiredPosition = _crouchEyePosition;
+        }
+
+        private void OnStopCrouching()
+        {
+            Camera.DesiredPosition = _defaultEyePosition;
         }
 
         public void TakeDamage(Damage damage)

@@ -7,7 +7,7 @@ namespace LOK1game.Player
     [RequireComponent(typeof(PlayerState), typeof(Rigidbody), typeof(CapsuleCollider))]
     public class PlayerMovement : MonoBehaviourPunCallbacks
     {
-        #region events
+        #region Events
 
         public event Action OnLand;
         public event Action OnJump;
