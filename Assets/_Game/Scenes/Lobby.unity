@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 4.874279, g: 6.0397644, b: 7.993622, a: 1}
+  m_IndirectSpecularColor: {r: 4.874317, g: 6.0396347, b: 7.9939117, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -283,7 +283,7 @@ MonoBehaviour:
     invertFade: 0
     distanceFadeStart: 10000
     distanceFadeEnd: 10000
-    textureOffset: {x: -0, y: -0, z: -0}
+    textureOffset: {x: -2.000023, y: -0.40000457, z: -0.40000457}
     falloffMode: 1
   m_Version: 2
 --- !u!4 &220873480
@@ -2716,7 +2716,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh132280
+  m_Name: pb_Mesh46512
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2

@@ -6,6 +6,7 @@ using Photon.Pun;
 using System;
 using LOK1game.Weapon;
 using Cinemachine;
+using LOK1game.Character.Generic;
 
 namespace LOK1game.Player
 {
@@ -27,6 +28,7 @@ namespace LOK1game.Player
         [SerializeField] private GameObject[] _localOnlyObjects;
         [SerializeField] private GameObject[] _worldOnlyObjects;
         [SerializeField] private FirstPersonArms _firstPersonArms;
+        [SerializeField] private Ragdoll _ragdoll;
         [SerializeField] private GameObject _visual;
         [SerializeField] private GameObject _playerInfoRoot;
         [SerializeField] private Vector3 _crouchEyePosition;
@@ -200,6 +202,9 @@ namespace LOK1game.Player
             if(IsLocal)
                 StartCoroutine(FreecamRoutine());
 
+            _ragdoll.EnableRagdoll(Movement.Rigidbody.velocity);
+            _ragdoll.transform.SetParent(null);
+
             IsDead = true;
             Movement.Rigidbody.isKinematic = true;
             Movement.PlayerCollider.enabled = false;
@@ -266,6 +271,9 @@ namespace LOK1game.Player
 
             _visual.SetActive(true);
             transform.position = respawnPosition;
+
+            _ragdoll.DisableRagdoll();
+            _ragdoll.transform.SetParent(_visual.transform);
 
             OnRespawned?.Invoke();
         }
