@@ -67,7 +67,7 @@ namespace LOK1game.Player
             {
                 _currentSlideTime += Time.deltaTime;
             }
-            if (_currentSlideTime >= _maxSlideTime)
+            if (_currentSlideTime >= _maxSlideTime && _playerState.IsSliding)
             {
                 Rigidbody.velocity = Vector3.zero;
 
