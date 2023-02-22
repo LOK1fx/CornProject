@@ -50,7 +50,11 @@ namespace LOK1game.Weapon
             {
                 if (hit.collider.gameObject.TryGetComponent<IDamagable>(out var damagable))
                 {
-                    var damage = new Damage(_data.Damage, EDamageType.Normal, sender);
+                    var damage = new Damage(_data.Damage, EDamageType.Normal, sender)
+                    {
+                        HitPoint = hit.point,
+                        HitNormal = hit.normal
+                    };
 
                     damagable.TakeDamage(damage);
                 }

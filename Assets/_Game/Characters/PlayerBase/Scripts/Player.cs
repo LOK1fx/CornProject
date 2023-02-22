@@ -1,7 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using LOK1game.Tools;
 using Photon.Pun;
 using System;
 using LOK1game.Weapon;
@@ -11,9 +9,9 @@ using LOK1game.Character.Generic;
 namespace LOK1game.Player
 {
     [RequireComponent(typeof(PlayerMovement), typeof(PlayerCamera), typeof(PlayerState))]
+    [RequireComponent(typeof(Health), typeof(PlayerWeapon))]
     public class Player : Pawn, IDamagable
     {
-        public event Action OnHealthChanged;
         public event Action OnRespawned;
         public event Action OnDeath;
 
@@ -22,7 +20,7 @@ namespace LOK1game.Player
         public PlayerCamera Camera { get; private set; }
         public PlayerState State { get; private set; }
         public FirstPersonArms FirstPersonArms => _firstPersonArms;
-        public int Health { get; private set; }
+        public Health Health { get; private set; }
         public bool IsDead { get; private set; }
 
         [SerializeField] private GameObject[] _localOnlyObjects;
@@ -38,10 +36,10 @@ namespace LOK1game.Player
         [Space]
         [SerializeField] private GameObject _freeCameraPrefab;
         [SerializeField] private float _respawnTime;
-        [SerializeField] private int _maxHealth = 100;
 
         private void Awake()
         {
+            Health = GetComponent<Health>();
             Movement = GetComponent<PlayerMovement>();
             Camera = GetComponent<PlayerCamera>();
             Camera.Construct(this);
@@ -67,8 +65,6 @@ namespace LOK1game.Player
 
         private void Start()
         {
-            Health = _maxHealth;
-
             if(IsLocal == false)
             {
                 gameObject.layer = 7;
@@ -121,7 +117,7 @@ namespace LOK1game.Player
                     Movement.StopCrouch();
 
             if(Input.GetKeyDown(KeyCode.K))
-                photonView.RPC(nameof(RemoveHealth), RpcTarget.All, new object[1] { _maxHealth });
+                photonView.RPC(nameof(RemoveHealth), RpcTarget.All, new object[1] { Health.MaxHp });
 
             if(Input.GetKeyDown(KeyCode.U))
                 photonView.RPC(nameof(RemoveHealth), RpcTarget.All, new object[1] { 15 });
@@ -162,35 +158,22 @@ namespace LOK1game.Player
         [PunRPC]
         private void AddHealth(int value)
         {
-            Health += value;
-
-            HealthChanged();
+            Health.AddHealth(value);
         }
 
         [PunRPC]
         private void RemoveHealth(int value)
         {
-            Health -= value;
+            Health.ReduceHealth(value);
 
-            if(Health <= 0)
+            if(Health.Hp <= 0)
                 photonView.RPC(nameof(Death), RpcTarget.All);
-
-            HealthChanged();
         }
 
         [PunRPC]
         private void SetHealth(int value)
         {
-            Health = value;
-
-            HealthChanged();
-        }
-
-        private void HealthChanged()
-        {
-            Health = Mathf.Clamp(Health, 0, _maxHealth);
-
-            OnHealthChanged?.Invoke();
+            Health.SetHealth(value);
         }
 
         [PunRPC]
@@ -202,7 +185,7 @@ namespace LOK1game.Player
             if(IsLocal)
                 StartCoroutine(FreecamRoutine());
 
-            _ragdoll.EnableRagdoll(Movement.Rigidbody.velocity);
+            _ragdoll.ActivateRagdoll(Movement.Rigidbody.velocity);
             _ragdoll.transform.SetParent(null);
 
             IsDead = true;
@@ -267,12 +250,12 @@ namespace LOK1game.Player
             if (State.IsCrouching)
                 Movement.StopCrouch();
 
-            SetHealth(_maxHealth);
+            Health.ResetHealth();
 
             _visual.SetActive(true);
             transform.position = respawnPosition;
 
-            _ragdoll.DisableRagdoll();
+            _ragdoll.DeactivateRagdoll();
             _ragdoll.transform.SetParent(_visual.transform);
 
             OnRespawned?.Invoke();

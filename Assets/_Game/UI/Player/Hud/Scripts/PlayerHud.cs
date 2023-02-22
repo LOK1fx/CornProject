@@ -24,7 +24,7 @@ namespace LOK1game.UI
 
         private void Setup()
         {
-            _player.OnHealthChanged += OnPlayerHealthChanged;
+            _player.Health.OnHealthChanged += OnPlayerHealthChanged;
             _player.Weapon.OnWeaponChanged += OnPlayerWeaponChanged;
             _player.Weapon.OnAttack += UpdateAmmoCounter;
             _player.Weapon.OnReloaded += UpdateAmmoCounter;
@@ -34,7 +34,7 @@ namespace LOK1game.UI
 
         private void OnDestroy()
         {
-            _player.OnHealthChanged -= OnPlayerHealthChanged;
+            _player.Health.OnHealthChanged -= OnPlayerHealthChanged;
             _player.Weapon.OnWeaponChanged -= OnPlayerWeaponChanged;
             _player.Weapon.OnAttack -= UpdateAmmoCounter;
             _player.Weapon.OnReloaded -= UpdateAmmoCounter;
@@ -52,9 +52,9 @@ namespace LOK1game.UI
             _weaponAmmoText.text = $"{data.Clip}|{data.Stash}";
         }
 
-        private void OnPlayerHealthChanged()
+        private void OnPlayerHealthChanged(int hp)
         {
-            _healthbarBar.localScale = new Vector3(_player.Health * 0.01f, 1f, 1f);
+            _healthbarBar.localScale = new Vector3(hp * 0.01f, 1f, 1f);
             _healthbarText.text = _player.Health.ToString();
         }
     }

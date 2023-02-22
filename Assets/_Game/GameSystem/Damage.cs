@@ -59,5 +59,20 @@ namespace LOK1game
             HitPoint = Vector3.zero;
             HitNormal = Vector3.zero;
         }
+
+        public Vector3 GetHitDirection()
+        {
+            if (HitPoint == Vector3.zero)
+                return Vector3.zero;
+
+            var originPosition = Sender.transform.position;
+            var direction = HitPoint - originPosition;
+
+            Debug.DrawRay(originPosition, Vector3.up, Color.green, 4f);
+            Debug.DrawRay(HitPoint, Vector3.up, Color.red, 4f);
+            Debug.DrawLine(originPosition, HitPoint, Color.yellow, 4f);
+
+            return direction.normalized;
+        }
     }
 }

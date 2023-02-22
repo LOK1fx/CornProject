@@ -18,6 +18,20 @@ namespace LOK1game
             Hp = _defaultHp;
         }
 
+        public void ResetHealth()
+        {
+            Hp = MaxHp;
+
+            OnHealthChanged?.Invoke(Hp);
+        }
+
+        public void SetHealth(int value)
+        {
+            Hp = value;
+
+            OnHealthChanged?.Invoke(Hp);
+        }
+
         public void ReduceHealth(int value)
         {
             Hp -= value;
