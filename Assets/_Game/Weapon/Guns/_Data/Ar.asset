@@ -19,8 +19,8 @@ MonoBehaviour:
   _clipAmmo: 35
   _ammo: 320
   _auto: 1
-  _damage: 12
+  _damage: 21
   _shootDistance: 100
-  _recoil: {x: 5, y: 4, z: 0}
-  _fireRate: 15
+  _recoil: {x: 9, y: 4, z: 0}
+  _fireRate: 12
   _reloadTime: 1

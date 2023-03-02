@@ -54,7 +54,7 @@ MonoBehaviour:
   m_LookAt: {fileID: 0}
   m_Follow: {fileID: 0}
   m_Lens:
-    FieldOfView: 70
+    FieldOfView: 80
     OrthographicSize: 10
     NearClipPlane: 0.001
     FarClipPlane: 5000
@@ -847,6 +847,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2269977424220242270}
     m_Modifications:
+    - target: {fileID: 326595368009636470, guid: 1d283f7c773c64248973f8a8d8305fcf, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1322285154917140356, guid: 1d283f7c773c64248973f8a8d8305fcf, type: 3}
       propertyPath: m_ConnectedAnchor.x
       value: 0.098000005
@@ -895,6 +899,10 @@ PrefabInstance:
       propertyPath: m_ConnectedAnchor.z
       value: 0.000000059604645
       objectReference: {fileID: 0}
+    - target: {fileID: 2529404676833529474, guid: 1d283f7c773c64248973f8a8d8305fcf, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2727419416538069002, guid: 1d283f7c773c64248973f8a8d8305fcf, type: 3}
       propertyPath: m_ConnectedAnchor.y
       value: -0.013400152
@@ -914,6 +922,10 @@ PrefabInstance:
     - target: {fileID: 2745195388574437181, guid: 1d283f7c773c64248973f8a8d8305fcf, type: 3}
       propertyPath: m_ConnectedAnchor.z
       value: -0.011600256
+      objectReference: {fileID: 0}
+    - target: {fileID: 2886892803162017903, guid: 1d283f7c773c64248973f8a8d8305fcf, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3183927879139506566, guid: 1d283f7c773c64248973f8a8d8305fcf, type: 3}
       propertyPath: m_Controller
@@ -965,7 +977,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8179779308854655302, guid: 1d283f7c773c64248973f8a8d8305fcf, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8377838583817707740, guid: 1d283f7c773c64248973f8a8d8305fcf, type: 3}
       propertyPath: m_ConnectedAnchor.x

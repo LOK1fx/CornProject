@@ -31,11 +31,21 @@ namespace LOK1game.Editor
             Save();
         }
 
+        public static ELaunchGameOption GetGameLaunchOption()
+        {
+            return _config.LaunchGameOption;
+        }
+
         public static void SetSpawnType(ESpawnType type)
         {
             _config.SpawnType = type;
 
             Save();
+        }
+
+        public static ESpawnType GetSpawnType()
+        {
+            return _config.SpawnType;
         }
 
         public static LaunchConfig GetConfig()

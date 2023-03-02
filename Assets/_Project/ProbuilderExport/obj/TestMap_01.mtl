@@ -1,0 +1,15 @@
+newmtl _M_MainProto
+map_Kd Q:/Unity/KukurusaProject/Assets/_Game/Levels/TestLevel/Textures/LG_PrototypeTexture.png
+Kd 1 1 1
+d 1
+
+newmtl _M_MainProto_Black
+map_Kd Q:/Unity/KukurusaProject/Assets/_Game/Levels/TestLevel/Textures/LG_PrototypeTexture.png
+Kd 0.1960784 0.1960784 0.1960784
+d 1
+
+newmtl _M_MainProto_Orange
+map_Kd Q:/Unity/KukurusaProject/Assets/_Game/Levels/TestLevel/Textures/LG_PrototypeTexture.png
+Kd 1 0.5882353 0
+d 1
+

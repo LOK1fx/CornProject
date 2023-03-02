@@ -6,6 +6,13 @@ using System.Linq;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
+#if UNITY_EDITOR
+
+using LOK1game.Editor;
+using UnityEditor;
+
+#endif
+
 public enum EGameModeState : ushort
 {
     Starting = 1,
@@ -77,14 +84,33 @@ namespace LOK1game.Game
             return playerController;
         }
 
-        protected Vector3 GetRandomSpawnPointPosition()
+        protected Vector3 GetRandomSpawnPointPosition(int actorId = -1)
         {
-            return GetRandomSpawnPointPosition(true);
+            return GetRandomSpawnPointPosition(true, actorId);
         }
         
-        protected Vector3 GetRandomSpawnPointPosition(bool playerFlag) 
+        protected Vector3 GetRandomSpawnPointPosition(bool playerFlag, int actorId = -1) 
         {
+#if UNITY_EDITOR
+
+            if (actorId == -1)
+            {
+                if (EditorConfig.GetSpawnType() == ESpawnType.FromCameraPosition)
+                {
+                    var camera = SceneView.GetAllSceneCameras()[0];
+
+                    Debug.Log($"spawning at {camera} | {camera.transform.position}");
+
+                    return camera.transform.position;
+                }
+            }
+
+#endif
+
             var spawnPoints = FindObjectsOfType<CharacterSpawnPoint>().ToList();
+
+            if (spawnPoints.Count == 0)
+                return Vector3.zero;
 
             if (playerFlag)
                 spawnPoints.RemoveAll(point => point.AllowPlayer == false);

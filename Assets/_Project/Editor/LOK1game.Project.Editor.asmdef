@@ -2,7 +2,9 @@
     "name": "LOK1game.Project.Editor",
     "rootNamespace": "",
     "references": [
-        "GUID:543c37f40afe2b544950890ee077b172"
+        "GUID:543c37f40afe2b544950890ee077b172",
+        "GUID:57c32fc907df0f54e8e6e8f0d2488336",
+        "GUID:831409e8f9d13b5479a3baef9822ad34"
     ],
     "includePlatforms": [
         "Editor"

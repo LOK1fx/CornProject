@@ -15,10 +15,15 @@ namespace LOK1game.Game
         FromCameraPosition,
     }
 
-    [System.Serializable]
+    [Serializable]
     public struct LaunchConfig
     {
         public ELaunchGameOption LaunchGameOption;
         public ESpawnType SpawnType;
+
+        public override string ToString()
+        {
+            return $"{LaunchGameOption.ToString()} | {SpawnType.ToString()}";
+        }
     }
 }

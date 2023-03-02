@@ -55,7 +55,7 @@ namespace LOK1game.UI
         private void OnPlayerHealthChanged(int hp)
         {
             _healthbarBar.localScale = new Vector3(hp * 0.01f, 1f, 1f);
-            _healthbarText.text = _player.Health.ToString();
+            _healthbarText.text = _player.Health.Hp.ToString();
         }
     }
 }

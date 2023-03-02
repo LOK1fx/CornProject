@@ -1,25 +1,26 @@
 using System.Collections;
-using UnityEngine;
-using Photon.Pun;
 
 namespace LOK1game.Game
 {
-    public class LobbyGameMode : MonoBehaviour, IGameMode
+    public class LobbyGameMode : BaseGameMode, IGameMode
     {
-        public EGameModeId Id => EGameModeId.Lobby;
-        public EGameModeState State { get; private set; }
+        public override EGameModeId Id => EGameModeId.Lobby;
 
-        public IEnumerator OnStart()
+        public override IEnumerator OnStart()
         {
             State = EGameModeState.Starting;
+
+            RegisterGameModeObject(Instantiate(CameraPrefab));
+            RegisterGameModeObject(Instantiate(UiPrefab));
+
+            State = EGameModeState.Started;
 
             yield return null;
         }
 
-
-        public IEnumerator OnEnd()
+        public override IEnumerator OnEnd()
         {
-            yield return null;
+            yield return DestroyAllGameModeObjects();
         }
     }
 }

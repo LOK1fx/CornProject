@@ -1,4 +1,5 @@
 using LOK1game.Editor;
+using LOK1game.Game;
 using UnityEditor;
 using UnityEngine;
 using UnityToolbarExtender;
@@ -23,21 +24,26 @@ public static class ToolbarExtensions
     private const string PLAY_AS_HOST_TEXT = "Set Host";
     private const string PLAY_AS_HOST_TOOLTIP = "Set launch option to play as Host(Player with server on it)";
 
+    private const string SWITCH_SPAWN_TYPE_TEXT = "Switch Spawn";
+    private const string SWITCH_SPAWN_TYPE_TOOLTIP = "Switches between SpawnTypes (Works only with the BaseGameMode game modes)";
+
     #endregion
 
-    //private static ELaunchGameOption _currentGameOptions;
+    private static LaunchConfig _editorLaunchConfig;
 
     static ToolbarExtensions()
     {
         ToolbarExtender.LeftToolbarGUI.Add(DrawLeftGUI);
         ToolbarExtender.RightToolbarGUI.Add(DrawRightGUI);
 
-        //_currentGameOptions = EditorConfig.GetConfig().LaunchGameOption;
+        RefreshConfigInfo();
     }
 
     private static void DrawLeftGUI()
     {
         GUILayout.FlexibleSpace();
+
+        GUILayout.Label("Navigation");
 
         DrawNavAppButton();
         DrawNavLevelsDatabaseButton();
@@ -50,6 +56,7 @@ public static class ToolbarExtensions
             DrawPlayAsClientButton();
             DrawPlayAsServerButton();
             DrawPlayAsHostButton();
+            DrawSwitchSpawnTypeButton();
         }
 
         DrawCurrentGameLaunchOption();
@@ -59,16 +66,35 @@ public static class ToolbarExtensions
 
     private static void DrawCurrentGameLaunchOption()
     {
-        //GUILayout.Label(new GUIContent($"Current launch option: {_currentGameOptions.ToString()}"));
+        GUILayout.Label(new GUIContent($"Current launch option: {_editorLaunchConfig.ToString()}"));
+    }
+
+    private static void DrawSwitchSpawnTypeButton()
+    {
+        GUILayout.Space(2f);
+
+        if (GUILayout.Button(new GUIContent(SWITCH_SPAWN_TYPE_TEXT, SWITCH_SPAWN_TYPE_TOOLTIP)))
+        {
+            var spawnType = EditorConfig.GetSpawnType();
+
+            if (spawnType == ESpawnType.Standard)
+                EditorConfig.SetSpawnType(ESpawnType.FromCameraPosition);
+            else
+                EditorConfig.SetSpawnType(ESpawnType.Standard);
+
+            RefreshConfigInfo();
+        }
+
+        GUILayout.Space(2f);
     }
 
     private static void DrawPlayAsClientButton()
     {
         if(GUILayout.Button(new GUIContent(PLAY_AS_CLIENT_TEXT, PLAY_AS_CLIENT_TOOLTIP)))
         {
-            //EditorConfig.SetGameLaunchOption(ELaunchGameOption.AsClient);
+            EditorConfig.SetGameLaunchOption(ELaunchGameOption.AsClient);
 
-            //_currentGameOptions = ELaunchGameOption.AsClient;
+            RefreshConfigInfo();
         }
     }
 
@@ -76,9 +102,9 @@ public static class ToolbarExtensions
     {
         if (GUILayout.Button(new GUIContent(PLAY_AS_SERVER_TEXT, PLAY_AS_SERVER_TOOLTIP)))
         {
-            //EditorConfig.SetGameLaunchOption(ELaunchGameOption.AsServer);
+            EditorConfig.SetGameLaunchOption(ELaunchGameOption.AsServer);
 
-            //_currentGameOptions = ELaunchGameOption.AsServer;
+            RefreshConfigInfo();
         }
     }
 
@@ -86,15 +112,22 @@ public static class ToolbarExtensions
     {
         if (GUILayout.Button(new GUIContent(PLAY_AS_HOST_TEXT, PLAY_AS_HOST_TOOLTIP)))
         {
-            //EditorConfig.SetGameLaunchOption(ELaunchGameOption.AsHost);
+            EditorConfig.SetGameLaunchOption(ELaunchGameOption.AsHost);
 
-            //_currentGameOptions = ELaunchGameOption.AsHost;
+            RefreshConfigInfo();
         }
+    }
+
+    private static void RefreshConfigInfo()
+    {
+        _editorLaunchConfig = EditorConfig.GetConfig();
     }
 
     private static void Play()
     {
         EditorApplication.ExecuteMenuItem("Edit/Play");
+
+        RefreshConfigInfo();
     }
 
     private static void DrawNavAppButton()
