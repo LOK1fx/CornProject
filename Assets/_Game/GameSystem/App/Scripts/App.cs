@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using LOK1game.Game.Events;
 using LOK1game.Utils;
 using UnityEngine;
-using Logger = LOK1game.Utils.Logger;
 
 namespace LOK1game
 {
@@ -13,6 +12,7 @@ namespace LOK1game
         public static Loggers Loggers { get; private set; }
 
         [SerializeField] private ProjectContext _projectContext = new ProjectContext();
+        [SerializeField] private List<LoggerContainer> _loggerContainers = new List<LoggerContainer>();
 
         private const string APP_GAME_OBJECT_NAME = "[App]";
 
@@ -64,24 +64,14 @@ namespace LOK1game
 
         private void InitializeLoggers()
         {
-            var loggers = new Dictionary<ELoggerGroup, Logger>();
-
-            CreateLogger(ELoggerGroup.Application, Color.yellow, ref loggers);
-            CreateLogger(ELoggerGroup.BaseInfo, Color.white, ref loggers);
-            CreateLogger(ELoggerGroup.Environment, Color.grey, ref loggers);
-            CreateLogger(ELoggerGroup.CurrentWorld, Color.green, ref loggers);
-            CreateLogger(ELoggerGroup.Networking, Color.green, ref loggers);
-            CreateLogger(ELoggerGroup.Player, Color.blue, ref loggers);
-            CreateLogger(ELoggerGroup.Physics, Color.yellow, ref loggers);
-
-            Loggers = new Loggers(loggers);
+            Loggers = new Loggers(_loggerContainers.ToArray());
         }
 
-        private void CreateLogger(ELoggerGroup group, Color color, ref Dictionary<ELoggerGroup, Logger> loggers)
+        [ContextMenu("Swap loggers")]
+        private void SwapLoggers()
         {
-            var logger = new Logger(group, true, color);
-
-            loggers.Add(group, logger);
+            if (Loggers != null)
+                Loggers.SwapLoggers(_loggerContainers.ToArray());
         }
     }
 }

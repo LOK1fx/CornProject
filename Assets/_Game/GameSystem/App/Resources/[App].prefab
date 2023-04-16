@@ -51,3 +51,34 @@ MonoBehaviour:
     - {fileID: 273501598482850652, guid: 353f37b2a0a5bbe428b6793f0829435b, type: 3}
     - {fileID: 6351644373052300999, guid: 5bd1e6090f6e38f4bb2c874ed4c0467f, type: 3}
     _devCardPrefab: {fileID: 989347278380142616, guid: 81fa0a389c837364db945127fee54655, type: 3}
+  _loggerContainers:
+  - Group: 4
+    Color: {r: 0.5896226, g: 1, b: 0.9134205, a: 1}
+    IsActivated: 1
+  - Group: 9
+    Color: {r: 1, g: 0.8751692, b: 0, a: 1}
+    IsActivated: 1
+  - Group: 8
+    Color: {r: 1, g: 1, b: 1, a: 1}
+    IsActivated: 1
+  - Group: 0
+    Color: {r: 0.6792453, g: 0.6792453, b: 0.6792453, a: 1}
+    IsActivated: 1
+  - Group: 3
+    Color: {r: 0, g: 0.46875, b: 1, a: 1}
+    IsActivated: 1
+  - Group: 6
+    Color: {r: 1, g: 0.21874024, b: 0.14509803, a: 1}
+    IsActivated: 1
+  - Group: 7
+    Color: {r: 1, g: 0.91536105, b: 0, a: 1}
+    IsActivated: 1
+  - Group: 5
+    Color: {r: 0.16510709, g: 1, b: 0.1462264, a: 1}
+    IsActivated: 1
+  - Group: 1
+    Color: {r: 0.3726415, g: 0.5092119, b: 1, a: 1}
+    IsActivated: 1
+  - Group: 2
+    Color: {r: 0.7028302, g: 0.7678361, b: 1, a: 1}
+    IsActivated: 1
