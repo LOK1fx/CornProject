@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace LOK1game.Utils
 {
@@ -26,10 +28,38 @@ namespace LOK1game.Utils
 
         public void Push(object message, Object sender = null)
         {
+            if (sender != null)
+                BasePush(message, sender, Debug.Log);
+            else
+                BasePush(message, Debug.Log);
+        }
+
+        public void PushWarning(object message, Object sender = null)
+        {
+            if (sender != null)
+                BasePush(message, sender, Debug.LogWarning);
+            else
+                BasePush(message, Debug.LogWarning);
+        }
+
+        public void PushError(object message, Object sender = null)
+        {
+            if (sender != null)
+                BasePush(message, sender, Debug.LogError);
+            else
+                BasePush(message, Debug.LogError);
+        }
+
+        private void BasePush(object message, Object sender, Action<object, Object> callback)
+        {
             if (_isToggled && sender != null)
-                Debug.Log(GenerateMessage(message), sender);
-            else if (_isToggled)
-                Debug.Log(GenerateMessage(message));
+                callback?.Invoke(GenerateMessage(message), sender);
+        }
+
+        private void BasePush(object message, Action<object> callback)
+        {
+            if (_isToggled)
+                callback?.Invoke(GenerateMessage(message));
         }
 
         private string GenerateMessage(object message)
