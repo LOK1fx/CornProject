@@ -1,5 +1,6 @@
 using System.Linq;
 using UnityEngine;
+using Logger = LOK1game.Utils.Logger;
 
 namespace LOK1game
 {
@@ -21,7 +22,6 @@ namespace LOK1game
 
         public Controller Controller => _controller;
         public abstract void OnInput(object sender);
-        
 
         public virtual void OnPocces(Controller sender)
         {
@@ -52,5 +52,24 @@ namespace LOK1game
 
             return spawnPoint.transform.position;
         }
+
+#region Loggers
+
+        public Logger GetPlayerLogger()
+        {
+            return GetLoggers().GetLogger(ELoggerGroup.Player);
+        }
+
+        public Logger GetEnemiesLogger()
+        {
+            return GetLoggers().GetLogger(ELoggerGroup.Enemies);
+        }
+
+        public Logger GetAILogger()
+        {
+            return GetLoggers().GetLogger(ELoggerGroup.AI);
+        }
+
+        #endregion
     }
 }

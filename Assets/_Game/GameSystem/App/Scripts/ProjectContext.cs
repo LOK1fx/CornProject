@@ -47,6 +47,8 @@ namespace LOK1game
             var evt = new OnProjectContextInitializedEvent(this);
             EventManager.Broadcast(evt);
 
+            App.Loggers.GetLogger(ELoggerGroup.BaseInfo).Push("Project context initalized!");
+
 #if UNITY_EDITOR
 
             if (UnityEditor.EditorUserBuildSettings.development)

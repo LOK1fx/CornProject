@@ -131,6 +131,8 @@ namespace LOK1game.Player
         private void OnJump()
         {
             Camera.AddCameraOffset(Vector3.up * 0.35f);
+
+            GetPlayerLogger().Push("Jump!", this);
         }
 
         private void OnStartCrouching()

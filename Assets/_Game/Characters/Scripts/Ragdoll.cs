@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace LOK1game.Character.Generic
 {
-    public class Ragdoll : MonoBehaviour
+    public class Ragdoll : Actor
     {
         #region Events
 
@@ -46,6 +46,8 @@ namespace LOK1game.Character.Generic
 
         public void ActivateRagdoll()
         {
+            GetPhysicsLogger().Push($"Ragdoll activated", this);
+
             foreach (var rigidbody in _rigidbodies)
             {
                 rigidbody.isKinematic = false;
