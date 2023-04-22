@@ -1,20 +1,14 @@
 fileFormatVersion: 2
-guid: b286b66d349974e40ad12ca67ff3966f
+guid: 9db1e7a30b880d54a896e25eda806437
 ModelImporter:
   serializedVersion: 21202
   internalIDToNameTable:
   - first:
       74: -7361427651036151181
-    second: rig|Idle
+    second: Idle01
   - first:
       74: 4502752750131169099
     second: rig|Origin
-  - first:
-      74: -6646207290592738263
-    second: rig|Walk_forward_rifle
-  - first:
-      74: -2485132809307644735
-    second: rig|Walk_right_rifle
   externalObjects: {}
   materials:
     materialImportMode: 0
@@ -37,15 +31,15 @@ ModelImporter:
     importAnimatedCustomProperties: 0
     importConstraints: 0
     animationCompression: 1
-    animationRotationError: 0.1
-    animationPositionError: 0.1
-    animationScaleError: 0.1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: rig|Idle
+      name: Idle01
       takeName: rig|Idle
       internalID: 0
       firstFrame: 0
@@ -78,7 +72,7 @@ ModelImporter:
       takeName: rig|Origin
       internalID: 0
       firstFrame: 0
-      lastFrame: 39
+      lastFrame: 119
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -86,64 +80,6 @@ ModelImporter:
       loop: 0
       hasAdditiveReferencePose: 0
       loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
-    - serializedVersion: 16
-      name: rig|Walk_forward_rifle
-      takeName: rig|Walk_forward_rifle
-      internalID: 0
-      firstFrame: 0
-      lastFrame: 39
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 1
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
-    - serializedVersion: 16
-      name: rig|Walk_right_rifle
-      takeName: rig|Walk_right_rifle
-      internalID: 0
-      firstFrame: 0
-      lastFrame: 39
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 1
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0

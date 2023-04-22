@@ -6,6 +6,6 @@ public sealed class DestroyOnLoad : MonoBehaviour
     {
         DestroyImmediate(gameObject);
 
-        Debug.LogWarning("There is an object that is destroyed at startup, maybe it is not needed here?");
+        Debug.LogWarning("There is an object that was destroyed at startup. Maybe it is not needed here?");
     }
 }

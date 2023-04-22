@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using LOK1game.Tools;
 using Photon.Pun;
 
 namespace LOK1game.World

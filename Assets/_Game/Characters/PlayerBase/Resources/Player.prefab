@@ -534,6 +534,7 @@ GameObject:
   - component: {fileID: 661094561047808830}
   - component: {fileID: 4480461475512207034}
   - component: {fileID: 7753751073176820142}
+  - component: {fileID: 5523315204862818183}
   - component: {fileID: 6506388837675046873}
   - component: {fileID: 2923838969098059435}
   - component: {fileID: 4243472633381124341}
@@ -622,6 +623,18 @@ MonoBehaviour:
   _crouchEyePosition: {x: 0, y: 1.25, z: 0}
   _freeCameraPrefab: {fileID: 2428400008581212475, guid: d72f275c0cca8a444ba1b1783d707964, type: 3}
   _respawnTime: 4
+--- !u!114 &5523315204862818183
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7611706474290867000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71a9928cf2ad60a48ba8e515416ff6a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &6506388837675046873
 MonoBehaviour:
   m_ObjectHideFlags: 0

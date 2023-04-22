@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 8502.195, g: 10284.25, b: 13476.359, a: 1}
+  m_IndirectSpecularColor: {r: 8236.844, g: 9915.703, b: 12872.656, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -25598,7 +25598,7 @@ MonoBehaviour:
     invertFade: 0
     distanceFadeStart: 10000
     distanceFadeEnd: 10000
-    textureOffset: {x: -2.159907, y: -0, z: -0}
+    textureOffset: {x: -12.482794, y: -0, z: -0}
     falloffMode: 1
   m_Version: 2
 --- !u!1 &1879952274

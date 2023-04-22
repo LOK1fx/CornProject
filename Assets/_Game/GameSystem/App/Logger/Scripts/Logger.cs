@@ -26,6 +26,21 @@ namespace LOK1game.Utils
             _color = color;
         }
 
+        public static void Push(object message, ELoggerGroup group, Object sender)
+        {
+            App.Loggers.GetLogger(group).Push(message, sender);
+        }
+
+        public static void PushWarning(object message, ELoggerGroup group, Object sender)
+        {
+            App.Loggers.GetLogger(group).PushWarning(message, sender);
+        }
+
+        public static void PushError(object message, ELoggerGroup group, Object sender)
+        {
+            App.Loggers.GetLogger(group).PushError(message, sender);
+        }
+
         public void Push(object message, Object sender = null)
         {
             if (sender != null)

@@ -1,11 +1,14 @@
 using LOK1game.Utils;
+using LOK1game.World;
 using Photon.Pun;
 
 namespace LOK1game
 {
     public abstract class Actor : MonoBehaviourPunCallbacks
     {
-#region Loggers
+        public GameWorld CurrentWorld { get; private set; }
+
+        #region Loggers
 
         public Logger GetBaseInfoLogger()
         {
@@ -32,7 +35,12 @@ namespace LOK1game
             return GetLoggers().GetLogger(ELoggerGroup.Subworld);
         }
 
-#endregion
+        #endregion
+
+        public void PassWorld<T>(T world) where T : GameWorld
+        {
+            CurrentWorld = world;
+        }
 
         protected virtual void SubscribeToEvents()
         {

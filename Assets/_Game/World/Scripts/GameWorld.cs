@@ -9,7 +9,7 @@ namespace LOK1game.World
         
         [SerializeField] private EGameModeId _standardGameModeOverride;
 
-        protected void Awake()
+        private void Awake()
         {
             Current = this;
 
