@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 626cc42100a4fff408e5d204a0c516d0, type: 3}
+  m_Name: FactoryLevels
+  m_EditorClassIdentifier: 
+  _mainScene:
+    _sceneAsset: {fileID: 102900000, guid: a9af9d32290d28d46befe3ffbf0c2b4c, type: 3}
+    _sceneName: FACTORY
+  _additionalScenes:
+  - _sceneAsset: {fileID: 102900000, guid: b01fe85bf888fdc45afe9fbce7b4bf67, type: 3}
+    _sceneName: FACTORY_LOC_CENTER_01
+  - _sceneAsset: {fileID: 102900000, guid: c09370b768a3d06438064d915fa2d949, type: 3}
+    _sceneName: FACTORY_LOC_CENTER_02
+  - _sceneAsset: {fileID: 102900000, guid: 3b8c22cec746bb64b91304b921352909, type: 3}
+    _sceneName: FACTORY_LOC_CENTER_03
+  - _sceneAsset: {fileID: 102900000, guid: 3b74dfd4220a4994f819572bb8061c46, type: 3}
+    _sceneName: FACTORY_LOC_CENTER_04
+  - _sceneAsset: {fileID: 102900000, guid: 5e1acae0c8a17444b84765dd90e1685d, type: 3}
+    _sceneName: FACTORY_LOC_DEN_01
+  - _sceneAsset: {fileID: 102900000, guid: 2fc2b7614bc1de74db4886c59a8cecac, type: 3}
+    _sceneName: FACTORY_LOC_EXTRA_01
+  - _sceneAsset: {fileID: 102900000, guid: ff917216393836344aa45fd984bbb0db, type: 3}
+    _sceneName: FACTORY_LOC_OUTDOORS_01

@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1096164261457315077}
   - component: {fileID: 10288105}
+  - component: {fileID: 6456570029677138112}
   m_Layer: 0
   m_Name: _World
   m_TagString: Untagged
@@ -45,3 +46,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _standardGameModeOverride: 1
+--- !u!114 &6456570029677138112
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1096164261457315076}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef66c71832ebae740a4b142efb1401a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _levelsData: {fileID: 0}

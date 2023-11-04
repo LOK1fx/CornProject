@@ -40,6 +40,7 @@ public static class Constants
         public const string APP_PATH = GAME_SYSTEM_PATH + "/App/Resources/[App].prefab";
         public const string LEVEL_DB_PATH = GAME_SYSTEM_PATH + "/Levels/Data/" + LEVEL_DB_LINKER_ASSET_NAME + ExtensionsNames.ASSET; //name.asset
         public const int APP_FILE_INSTANCE_ID = -1; //not currently definded
+        public const string SCENES_PATH = "Assets/_Game/Scenes";
 
         private const string GAME_SYSTEM_PATH = "Assets/_Game/GameSystem";
         private const string LEVEL_DB_LINKER_ASSET_NAME = "_LevelDB_Linker(Don't delete)";
@@ -49,6 +50,8 @@ public static class Constants
             public const string ASSET = ".asset";
             public const string PREFAB = ".prefab";
             public const string CONTROLLER = ".controller";
+            public const string UNITY = ".unity";
+            public const string SCENE = UNITY;
         }
     }
 }

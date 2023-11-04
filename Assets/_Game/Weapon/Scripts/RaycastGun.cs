@@ -1,5 +1,4 @@
 using UnityEngine;
-using System;
 
 namespace LOK1game.Weapon
 {
@@ -44,8 +43,6 @@ namespace LOK1game.Weapon
 
             for (int i = 0; i < _data.ProjectilesPerUseCount; i++)
             {
-                Debug.Log(_data.ProjectilesPerUseCount);
-
                 var spread = camera.position + camera.forward * 1000f;
 
                 spread += UnityEngine.Random.Range(-_data.SpreadRadius, _data.SpreadRadius) * camera.up;
