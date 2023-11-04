@@ -22,12 +22,16 @@ namespace LOK1game
         {
             Hp = MaxHp;
 
+            SetAccurateHealth();
+
             OnHealthChanged?.Invoke(Hp);
         }
 
         public void SetHealth(int value)
         {
             Hp = value;
+
+            SetAccurateHealth();
 
             OnHealthChanged?.Invoke(Hp);
         }
@@ -36,6 +40,8 @@ namespace LOK1game
         {
             Hp -= value;
 
+            SetAccurateHealth();
+
             OnHealthChanged?.Invoke(Hp);
         }
 
@@ -43,7 +49,17 @@ namespace LOK1game
         {
             Hp += value;
 
+            SetAccurateHealth();
+
             OnHealthChanged?.Invoke(Hp);
+        }
+
+        private void SetAccurateHealth()
+        {
+            Hp = Mathf.Min(Hp, MaxHp);
+
+            if (Hp < 0)
+                Hp = 0;
         }
     }
 }

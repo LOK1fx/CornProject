@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12e86dc9e51c6bd46a9d1766c6cb8d7e, type: 3}
+  m_Name: Shotgun
+  m_EditorClassIdentifier: 
+  _weaponId: 4
+  _prefab: {fileID: 7546589781984140483, guid: 7ca066e547b794244bb663cdecc25c99, type: 3}
+  _animatorOverride: {fileID: 22100000, guid: 6f6a857102bef7340a2f3b40b53947a5, type: 2}
+  _gunName: Shotgun
+  _clipAmmo: 8
+  _ammo: 120
+  _projectilesPerUseCount: 8
+  _auto: 0
+  _damage: 18
+  _shootDistance: 100
+  _recoil: {x: 9, y: 4, z: 0}
+  _spreadRadius: 120
+  _fireRate: 4
+  _reloadTime: 2
+  _shootSound: {fileID: 8300000, guid: 77c691052ee43434d9b36010de249c8e, type: 3}

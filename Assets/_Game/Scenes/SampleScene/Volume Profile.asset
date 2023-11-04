@@ -45,8 +45,8 @@ MonoBehaviour:
     m_OverrideState: 0
     m_Value: {x: 0, y: 0}
   lowestCloudAltitude:
-    m_OverrideState: 0
-    m_Value: 1000
+    m_OverrideState: 1
+    m_Value: 421.4
   cloudThickness:
     m_OverrideState: 0
     m_Value: 8000
@@ -72,11 +72,11 @@ MonoBehaviour:
     m_OverrideState: 0
     m_Value: {fileID: 0}
   cloudControl:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value: 0
   cloudPreset:
-    m_OverrideState: 0
-    m_Value: 1
+    m_OverrideState: 1
+    m_Value: 0
   cumulusMap:
     m_OverrideState: 0
     m_Value: {fileID: 0}
@@ -252,8 +252,8 @@ MonoBehaviour:
     m_OverrideState: 0
     m_Value: 2.5
   shapeOffset:
-    m_OverrideState: 0
-    m_Value: {x: 0, y: 0, z: 0}
+    m_OverrideState: 1
+    m_Value: {x: 0.15, y: 0.01, z: 0}
   erosionFactor:
     m_OverrideState: 0
     m_Value: 0.5
@@ -264,10 +264,10 @@ MonoBehaviour:
     m_OverrideState: 0
     m_Value: 1
   ambientLightProbeDimmer:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value: 1
   sunLightDimmer:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value: 1
   erosionOcclusion:
     m_OverrideState: 0
@@ -447,10 +447,10 @@ MonoBehaviour:
   active: 1
   shadows:
     m_OverrideState: 1
-    m_Value: {r: 0.09812211, g: 0.15613875, b: 0.3301887, a: 1}
+    m_Value: {r: 0.10964756, g: 0.19864714, b: 0.3018868, a: 1}
   highlights:
     m_OverrideState: 0
     m_Value: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   balance:
     m_OverrideState: 1
-    m_Value: 6
+    m_Value: -9

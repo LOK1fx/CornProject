@@ -14,6 +14,9 @@ namespace LOK1game.Player
     {
         public event Action OnRespawned;
         public event Action OnDeath;
+        public event Action OnTakeDamage;
+
+        public recode.Player.PlayerWallrun Wallrun { get; private set; }
 
         public PlayerWeapon Weapon { get; private set; }
         public PlayerMovement Movement { get; private set; }
@@ -26,7 +29,6 @@ namespace LOK1game.Player
         [SerializeField] private GameObject[] _localOnlyObjects;
         [SerializeField] private GameObject[] _worldOnlyObjects;
         [SerializeField] private FirstPersonArms _firstPersonArms;
-        [SerializeField] private Ragdoll _ragdoll;
         [SerializeField] private GameObject _visual;
         [SerializeField] private GameObject _playerInfoRoot;
         [SerializeField] private Vector3 _crouchEyePosition;
@@ -34,7 +36,11 @@ namespace LOK1game.Player
         private Vector3 _defaultEyePosition;
 
         [Space]
+        [SerializeField] private Vector3 _onDamageCameraPunch;
         [SerializeField] private GameObject _freeCameraPrefab;
+
+        public float RespawnTime => _respawnTime;
+
         [SerializeField] private float _respawnTime;
 
         private void Awake()
@@ -46,6 +52,8 @@ namespace LOK1game.Player
             State = GetComponent<PlayerState>();
             Weapon = GetComponent<PlayerWeapon>();
             Weapon.Construct(this);
+
+            Wallrun = GetComponent<recode.Player.PlayerWallrun>();
 
             Movement.OnLand += OnLand;
             Movement.OnJump += OnJump;
@@ -71,16 +79,36 @@ namespace LOK1game.Player
                 Movement.Rigidbody.isKinematic = true;
                 playerType = EPlayerType.World;
 
-                foreach (var gameObject in _localOnlyObjects)
-                {
-                    gameObject.SetActive(false);
-                }
+                OnSpawn();
             }
             else
             {
                 _playerInfoRoot.SetActive(false);
                 playerType = EPlayerType.View;
 
+                OnSpawn();
+            }
+        }
+
+        private void OnSpawn()
+        {
+            if (IsLocal == false)
+            {
+                foreach (var gameObject in _localOnlyObjects)
+                {
+                    gameObject.SetActive(false);
+                }
+                foreach (var gameObject in _worldOnlyObjects)
+                {
+                    gameObject.SetActive(true);
+                }
+            }
+            else
+            {
+                foreach (var gameObject in _localOnlyObjects)
+                {
+                    gameObject.SetActive(true);
+                }
                 foreach (var gameObject in _worldOnlyObjects)
                 {
                     gameObject.SetActive(false);
@@ -106,6 +134,8 @@ namespace LOK1game.Player
             Movement.SetAxisInput(inputAxis);
             Weapon.OnInput(this);
 
+            Wallrun.OnInput(this);
+
             if (Input.GetKey(KeyCode.Space))
                 Movement.Jump();
 
@@ -116,16 +146,17 @@ namespace LOK1game.Player
                 if(Movement.CanStand())
                     Movement.StopCrouch();
 
-            if(Input.GetKeyDown(KeyCode.K))
-                photonView.RPC(nameof(RemoveHealth), RpcTarget.All, new object[1] { Health.MaxHp });
+            if (Input.GetKeyDown(KeyCode.K))
+                TakeDamage(new Damage(Health.MaxHp));
 
-            if(Input.GetKeyDown(KeyCode.U))
-                photonView.RPC(nameof(RemoveHealth), RpcTarget.All, new object[1] { 15 });
+            if (Input.GetKeyDown(KeyCode.U))
+                TakeDamage(new Damage(15));
         }
 
         private void OnLand()
         {
             Camera.AddCameraOffset(Vector3.down * 0.5f);
+            Camera.TriggerRecoil(new Vector3(-1f, 0f, 1f));
         }
 
         private void OnJump()
@@ -147,7 +178,7 @@ namespace LOK1game.Player
 
         public void TakeDamage(Damage damage)
         {
-            if (IsDead)
+            if (IsDead || damage.Value <= 0)
                 return;
 
             var text = new PopupTextParams($"Damage: {damage.Value}", 5f, Color.red);
@@ -155,6 +186,15 @@ namespace LOK1game.Player
             PopupText.Spawn<PopupText3D>(transform.position + Vector3.up * 2, transform, text);
 
             photonView.RPC(nameof(RemoveHealth), RpcTarget.All, new object[1] { damage.Value });
+            photonView.RPC(nameof(TakeDamageReplacatedEffects), RpcTarget.Others);
+        }
+
+        [PunRPC]
+        private void TakeDamageReplacatedEffects()
+        {
+            Camera.TriggerRecoil(_onDamageCameraPunch);
+
+            OnTakeDamage?.Invoke();
         }
 
         [PunRPC]
@@ -186,9 +226,6 @@ namespace LOK1game.Player
 
             if(IsLocal)
                 StartCoroutine(FreecamRoutine());
-
-            _ragdoll.ActivateRagdoll(Movement.Rigidbody.velocity);
-            _ragdoll.transform.SetParent(null);
 
             IsDead = true;
             Movement.Rigidbody.isKinematic = true;
@@ -257,8 +294,7 @@ namespace LOK1game.Player
             _visual.SetActive(true);
             transform.position = respawnPosition;
 
-            _ragdoll.DeactivateRagdoll();
-            _ragdoll.transform.SetParent(_visual.transform);
+            OnSpawn();
 
             OnRespawned?.Invoke();
         }

@@ -11,8 +11,9 @@ namespace LOK1game
     {
         [SerializeField] private Button _connectButton;
 
-        private void Awake()
+        private void Start()
         {
+            PhotonNetwork.OfflineMode = false;
             PhotonNetwork.GameVersion = Application.version;
             PhotonNetwork.AutomaticallySyncScene = true;
 

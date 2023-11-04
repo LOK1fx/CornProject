@@ -12,16 +12,18 @@ namespace LOK1game
 
         private Quaternion _startRotation;
         private Vector2 _inputDelta;
+        private float _playerSensitivity;
 
         private void Start()
         {
             _startRotation = transform.localRotation;
+            _playerSensitivity = Settings.GetSensivity();
         }
 
         private void Update()
         {
             if (Cursor.lockState == CursorLockMode.Locked)
-                _inputDelta = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
+                _inputDelta = new Vector2(Input.GetAxis("Mouse X") * _playerSensitivity, Input.GetAxis("Mouse Y") * _playerSensitivity);
             else
                 _inputDelta = Vector2.zero;
 

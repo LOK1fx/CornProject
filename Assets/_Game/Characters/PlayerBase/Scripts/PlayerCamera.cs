@@ -55,6 +55,8 @@ namespace LOK1game.Player
             {
                 Cursor.visible = false;
                 Cursor.lockState = CursorLockMode.Locked;
+
+                _sensivity = Settings.GetSensivity();
             }
             else
             {

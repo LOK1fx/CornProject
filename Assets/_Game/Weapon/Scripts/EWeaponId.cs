@@ -5,5 +5,7 @@ namespace LOK1game.Weapon
         None = 0,
         TEST_Pistol,
         TEST_Ar,
+        TEST_GD,
+        TEST_SHOTGUN
     }
 }

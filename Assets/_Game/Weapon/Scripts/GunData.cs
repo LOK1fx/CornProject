@@ -13,12 +13,15 @@ namespace LOK1game.Weapon
         public string GunName => _gunName;
         public int ClipAmmo => _clipAmmo;
         public int Ammo => _ammo;
+        public int ProjectilesPerUseCount => _projectilesPerUseCount;
         public bool Auto => _auto;
         public int Damage => _damage;
         public float ShootDistance => _shootDistance;
         public Vector3 Recoil => _recoil;
+        public float SpreadRadius => _spreadRadius;
         public float FireRate => _fireRate;
         public float ReloadTime => _reloadTime;
+        public AudioClip ShootSound => _shootSound;
 
 
         [SerializeField] private EWeaponId _weaponId = EWeaponId.None;
@@ -30,12 +33,15 @@ namespace LOK1game.Weapon
         [SerializeField] private string _gunName = "Gun";
         [SerializeField] private int _clipAmmo = 8;
         [SerializeField] private int _ammo = 120;
+        [SerializeField] private int _projectilesPerUseCount = 1;
         [SerializeField] private bool _auto;
         [SerializeField] private int _damage = 10;
         [SerializeField] private float _shootDistance = 100f;
         [SerializeField] private Vector3 _recoil = Vector3.right;
+        [SerializeField] private float _spreadRadius = 1f;
         [SerializeField] private float _fireRate = 0.25f;
         [SerializeField] private float _reloadTime = 1f;
+        [SerializeField] private AudioClip _shootSound;
 
         [HideInInspector] public int Stash { get; private set; }
         [HideInInspector] public int Clip { get; private set; }

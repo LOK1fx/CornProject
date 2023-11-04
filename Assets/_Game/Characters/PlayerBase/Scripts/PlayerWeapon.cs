@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using System;
 using System.Collections;
+using Photon.Pun;
 
 namespace LOK1game.Weapon
 {
@@ -9,12 +10,14 @@ namespace LOK1game.Weapon
     {
         public event Action<GunData> OnWeaponChanged;
         public event Action<GunData> OnAttack;
+        public event Action<GunData> OnStartReloading;
         public event Action<GunData> OnReloaded;
 
         public bool IsReloading { get; private set; }
 
         [SerializeField] private List<GunData> _loadout;
         [SerializeField] private Transform _weaponHolder;
+        [SerializeField] private AudioSource _weaponAudioSource;
 
         private IWeapon _currentWeapon;
         private int _currentWeaponIndex;
@@ -79,7 +82,7 @@ namespace LOK1game.Weapon
             }
             if(Input.GetKeyDown(KeyCode.R))
             {
-                if(IsReloading == false)
+                if(IsReloading == false && _loadout[_currentWeaponIndex].Clip != _loadout[_currentWeaponIndex].ClipAmmo)
                     StartCoroutine(ReloadRoutine());
             }
         }
@@ -91,13 +94,16 @@ namespace LOK1game.Weapon
 
             _player.FirstPersonArms.ClearRightHand();
 
-            var gun = Instantiate(data.Prefab);
+            var gunObject = Instantiate(data.Prefab);
+            var gun = gunObject.GetComponent<RaycastGun>();
 
-            _player.FirstPersonArms.AttachObjectToRightHand(gun);
+            gun.Construct(data);
+
+            _player.FirstPersonArms.AttachObjectToRightHand(gunObject);
             _player.FirstPersonArms.Animator.runtimeAnimatorController = data.AnimatorOverride;
             _player.FirstPersonArms.Animator.Play("Equip", 0, 0f);
 
-            _currentWeapon = gun.GetComponent<IWeapon>();
+            _currentWeapon = gunObject.GetComponent<IWeapon>();
 
             OnWeaponChanged?.Invoke(data);
         }
@@ -109,10 +115,21 @@ namespace LOK1game.Weapon
             EquipWeapon(_loadout[index]);
         }
 
+        [PunRPC]
+        private void ReplecateWeapon(byte id)
+        {
+
+        }
+
         private IEnumerator ReloadRoutine()
         {
+            if (IsReloading)
+                yield return null;
+
             var weapon = _loadout[_currentWeaponIndex];
             IsReloading = true;
+
+            OnStartReloading?.Invoke(weapon);
 
             yield return new WaitForSeconds(_loadout[_currentWeaponIndex].ReloadTime);
 
@@ -124,7 +141,7 @@ namespace LOK1game.Weapon
 
         private void Attack()
         {
-            if (_loadout[_currentWeaponIndex].Clip == 0)
+            if (_loadout[_currentWeaponIndex].Clip == 0 && IsReloading == false)
                 StartCoroutine(ReloadRoutine());
 
             if (_currentWeapon.CanBeUsed && _loadout[_currentWeaponIndex].TryFireBullet() && IsReloading == false)
@@ -132,8 +149,16 @@ namespace LOK1game.Weapon
                 _currentWeapon.Use(_player);
                 _player.FirstPersonArms.Animator.Play("Shoot", 0, 0f);
 
+                _player.photonView.RPC(nameof(ReplacatedAttackSound), RpcTarget.All);
+
                 OnAttack?.Invoke(_loadout[_currentWeaponIndex]);
             }
+        }
+
+        [PunRPC]
+        private void ReplacatedAttackSound()
+        {
+            _weaponAudioSource.PlayOneShot(_loadout[_currentWeaponIndex].ShootSound);
         }
 
         private void OnPlayerRespawned()
