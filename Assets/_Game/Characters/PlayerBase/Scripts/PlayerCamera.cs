@@ -95,6 +95,16 @@ namespace LOK1game.Player
             _recoilCamera.localRotation = Quaternion.Euler(_currentRecoilCameraRotation);
         }
 
+        public void SetXRotation(float xRotation)
+        {
+            _xRotation = xRotation;
+        }
+
+        public void SetYRotation(float yRotation)
+        {
+            _yRotation = yRotation;
+        }
+
         public void TriggerRecoil(Vector3 recoil)
         {
             _recoilCameraRotation += new Vector3(-recoil.x, Random.Range(-recoil.y, recoil.y), Random.Range(-recoil.z, recoil.z));

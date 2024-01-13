@@ -1,6 +1,11 @@
-using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+
+#if UNITY_EDITOR
+
+using UnityEditor.SceneManagement;
+
+#endif
 
 namespace LOK1game.World
 {
@@ -10,6 +15,29 @@ namespace LOK1game.World
 
         private void Awake()
         {
+#if UNITY_EDITOR
+
+            Logger.Push($"MainScene in world: {_levelsData.MainScene.SceneName}", ELoggerGroup.CurrentWorld, this);
+
+            //Removing preview scenes
+            if (SceneManager.sceneCount > 1)
+            {
+                for (int i = 0; i < SceneManager.sceneCount; i++)
+                {
+                    var scene = SceneManager.GetSceneAt(i);
+
+                    Logger.Push($"Scene at {i}: {scene.name}", ELoggerGroup.BaseInfo, this);
+
+                    if (scene.name != _levelsData.MainScene.SceneName)
+                    {
+                        //SceneManager.UnloadSceneAsync(scene.name, UnloadSceneOptions.UnloadAllEmbeddedSceneObjects);
+                        EditorSceneManager.CloseScene(scene, true);
+                    }
+                }
+            }
+
+#endif
+
             LoadAllAdditionalLevels();
         }
 
@@ -21,6 +49,8 @@ namespace LOK1game.World
             }
         }
 
+#if UNITY_EDITOR
+
         [ContextMenu("Load additional scenes")]
         private void LoadAllAdditionalLevels_Editor()
         {
@@ -30,5 +60,7 @@ namespace LOK1game.World
                     $"{_levelsData.MainScene.SceneName}/{level.SceneName}{Constants.Editor.ExtensionsNames.SCENE}", OpenSceneMode.Additive);
             }
         }
+
+#endif
     }
 }

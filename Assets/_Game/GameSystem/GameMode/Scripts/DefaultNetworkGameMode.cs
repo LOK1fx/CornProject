@@ -13,6 +13,7 @@ namespace LOK1game.Game
         {
             State = EGameModeState.Starting;
 
+            RegisterSpawnPoints();
             SpawnGameModeObject(CameraPrefab);
 
             var ui = SpawnGameModeObject(UiPrefab);   

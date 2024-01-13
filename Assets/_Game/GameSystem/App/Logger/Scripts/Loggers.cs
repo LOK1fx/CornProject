@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace LOK1game.Utils
+namespace LOK1game
 {
     [System.Serializable]
     public class LoggerContainer

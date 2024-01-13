@@ -2,9 +2,9 @@
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-namespace LOK1game.Utils
+namespace LOK1game
 {
-    [System.Serializable]
+    [Serializable]
     public class Logger
     {
         public ELoggerGroup Group => _group;
@@ -26,17 +26,17 @@ namespace LOK1game.Utils
             _color = color;
         }
 
-        public static void Push(object message, ELoggerGroup group, Object sender)
+        public static void Push(object message, ELoggerGroup group, Object sender = null)
         {
             App.Loggers.GetLogger(group).Push(message, sender);
         }
 
-        public static void PushWarning(object message, ELoggerGroup group, Object sender)
+        public static void PushWarning(object message, ELoggerGroup group, Object sender = null)
         {
             App.Loggers.GetLogger(group).PushWarning(message, sender);
         }
 
-        public static void PushError(object message, ELoggerGroup group, Object sender)
+        public static void PushError(object message, ELoggerGroup group, Object sender = null)
         {
             App.Loggers.GetLogger(group).PushError(message, sender);
         }

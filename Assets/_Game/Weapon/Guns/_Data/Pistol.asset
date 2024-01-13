@@ -20,10 +20,10 @@ MonoBehaviour:
   _ammo: 90
   _projectilesPerUseCount: 1
   _auto: 0
-  _damage: 125
+  _damage: 57
   _shootDistance: 1000
-  _recoil: {x: 50, y: 5, z: 0}
-  _spreadRadius: 1
-  _fireRate: 100
+  _recoil: {x: 40, y: 5, z: 0}
+  _spreadRadius: 2
+  _fireRate: 6
   _reloadTime: 2
   _shootSound: {fileID: 8300000, guid: f14da98f4fd99964c944bc5e2df3deab, type: 3}

@@ -20,7 +20,7 @@ MonoBehaviour:
   _ammo: 320
   _projectilesPerUseCount: 1
   _auto: 1
-  _damage: 21
+  _damage: 18
   _shootDistance: 100
   _recoil: {x: 9, y: 4, z: 0}
   _spreadRadius: 20

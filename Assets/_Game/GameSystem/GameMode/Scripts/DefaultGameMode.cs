@@ -1,5 +1,4 @@
 using System.Collections;
-using UnityEngine;
 
 namespace LOK1game.Game
 {
@@ -11,6 +10,7 @@ namespace LOK1game.Game
         {
             State = EGameModeState.Starting;
 
+            RegisterSpawnPoints();
             SpawnGameModeObject(CameraPrefab);
 
             //So strange code

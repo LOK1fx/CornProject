@@ -4,13 +4,13 @@ using Photon.Pun;
 using System;
 using LOK1game.Weapon;
 using Cinemachine;
-using LOK1game.Character.Generic;
+using LOK1game.Character;
 
 namespace LOK1game.Player
 {
     [RequireComponent(typeof(PlayerMovement), typeof(PlayerCamera), typeof(PlayerState))]
     [RequireComponent(typeof(Health), typeof(PlayerWeapon))]
-    public class Player : Pawn, IDamagable
+    public class Player : Pawn, IDamagable, ICharacter
     {
         public event Action OnRespawned;
         public event Action OnDeath;
@@ -88,6 +88,14 @@ namespace LOK1game.Player
 
                 OnSpawn();
             }
+        }
+
+        public void OnSpawnedOnSpawnPoint(CharacterSpawnPoint spawnPoint)
+        {
+            var rotation = spawnPoint.transform.eulerAngles;
+
+            Camera.SetXRotation(rotation.x);
+            Camera.SetYRotation(rotation.y);
         }
 
         private void OnSpawn()

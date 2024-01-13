@@ -30,6 +30,8 @@ namespace LOK1game.Game
     [Serializable]
     public abstract class BaseGameMode : MonoBehaviour, IGameMode
     {
+        public CharacterSpawnPointsManager CharacterSpawnPointsManager { get; private set; } = new CharacterSpawnPointsManager();
+
         public EGameModeState State { get; protected set; }
         public List<GameObject> GameModeSpawnedObjects { get; private set; }
 
@@ -107,20 +109,28 @@ namespace LOK1game.Game
 
 #endif
 
-            var spawnPoints = FindObjectsOfType<CharacterSpawnPoint>().ToList();
+            var spawnPoints = CharacterSpawnPointsManager.SpawnPoints.ToList();
 
             if (spawnPoints.Count == 0)
                 return Vector3.zero;
 
             if (playerFlag)
-                spawnPoints.RemoveAll(point => point.AllowPlayer == false);
+                spawnPoints.RemoveAll(point => point.Value.AllowPlayer == false);
             
             if (spawnPoints.Count < 1)
                 return Vector3.zero;
             
             var spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Count)];
 
-            return spawnPoint.transform.position;
+            return spawnPoint.Value.transform.position;
+        }
+
+        protected void RegisterSpawnPoints()
+        {
+            foreach (var spawnPoint in FindObjectsOfType<CharacterSpawnPoint>())
+            {
+                CharacterSpawnPointsManager.SpawnPoints.Add(spawnPoint.Id, spawnPoint);
+            }
         }
         
         /// <summary>

@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using Logger = LOK1game.Utils.Logger;
 
 namespace LOK1game.Player
 {
