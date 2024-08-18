@@ -12,6 +12,7 @@ namespace LOK1game.Weapon
         public event Action<GunData> OnAttack;
         public event Action<GunData> OnStartReloading;
         public event Action<GunData> OnReloaded;
+        public event Action<GunData, Damage> OnHit;
 
         public bool IsReloading { get; private set; }
 
@@ -21,9 +22,9 @@ namespace LOK1game.Weapon
 
         private IWeapon _currentWeapon;
         private int _currentWeaponIndex;
-        private Player.Player _player;
+        private PlayerDomain.Player _player;
 
-        public void Construct(Player.Player player)
+        public void Construct(PlayerDomain.Player player)
         {
             _player = player;
         }
@@ -51,40 +52,36 @@ namespace LOK1game.Weapon
             if(_loadout[_currentWeaponIndex].Auto)
             {
                 if (Input.GetKey(KeyCode.Mouse0))
-                {
                     Attack();
-                }
             }
             else
             {
                 if (Input.GetKeyDown(KeyCode.Mouse0))
-                {
                     Attack();
-                }
             }
 
             if(Input.GetKeyDown(KeyCode.Alpha1))
-            {
                 EquipWeapon(0);
-            }
             if(Input.GetKeyDown(KeyCode.Alpha2))
-            {
                 EquipWeapon(1);
-            }
             if (Input.GetKeyDown(KeyCode.Alpha3))
-            {
                 EquipWeapon(2);
-            }
 
             if(Input.GetKeyDown(KeyCode.F))
-            {
                 _player.FirstPersonArms.Animator.Play("Inspect", 0, 0f);
-            }
+
             if(Input.GetKeyDown(KeyCode.R))
             {
                 if(IsReloading == false && _loadout[_currentWeaponIndex].Clip != _loadout[_currentWeaponIndex].ClipAmmo)
                     StartCoroutine(ReloadRoutine());
             }
+        }
+
+        public void EquipWeapon(int index)
+        {
+            _currentWeaponIndex = index;
+
+            EquipWeapon(_loadout[index]);
         }
 
         public void EquipWeapon(GunData data)
@@ -95,9 +92,9 @@ namespace LOK1game.Weapon
             _player.FirstPersonArms.ClearRightHand();
 
             var gunObject = Instantiate(data.Prefab);
-            var gun = gunObject.GetComponent<RaycastGun>();
 
-            gun.Construct(data);
+            if (gameObject.TryGetComponent<RaycastGun>(out var gun))
+                gun.Construct(data);      
 
             _player.FirstPersonArms.AttachObjectToRightHand(gunObject);
             _player.FirstPersonArms.Animator.runtimeAnimatorController = data.AnimatorOverride;
@@ -105,20 +102,16 @@ namespace LOK1game.Weapon
 
             _currentWeapon = gunObject.GetComponent<IWeapon>();
 
+            _player.photonView.RPC(nameof(ReplecateWeapon), RpcTarget.Others, data.WeaponId);
+
             OnWeaponChanged?.Invoke(data);
         }
 
-        public void EquipWeapon(int index)
-        {
-            _currentWeaponIndex = index;
-
-            EquipWeapon(_loadout[index]);
-        }
 
         [PunRPC]
         private void ReplecateWeapon(byte id)
         {
-
+            _currentWeaponIndex = id;
         }
 
         private IEnumerator ReloadRoutine()
@@ -130,6 +123,8 @@ namespace LOK1game.Weapon
             IsReloading = true;
 
             OnStartReloading?.Invoke(weapon);
+
+            _player.FirstPersonArms.Animator.Play("Reload", 0, 0f);
 
             yield return new WaitForSeconds(_loadout[_currentWeaponIndex].ReloadTime);
 
@@ -153,6 +148,11 @@ namespace LOK1game.Weapon
 
                 OnAttack?.Invoke(_loadout[_currentWeaponIndex]);
             }
+        }
+
+        public void OnWeaponHit(GunData data, Damage damage)
+        {
+            OnHit?.Invoke(data, damage);
         }
 
         [PunRPC]

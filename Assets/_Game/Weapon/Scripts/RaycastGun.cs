@@ -26,15 +26,15 @@ namespace LOK1game.Weapon
             }
         }
 
-        public abstract void AltUse(Player.Player sender);
-        public abstract void Equip(Player.Player sender);
+        public abstract void AltUse(PlayerDomain.Player sender);
+        public abstract void Equip(PlayerDomain.Player sender);
 
         public void Construct(GunData data)
         {
             _data = data;
         }
 
-        public virtual void Use(Player.Player sender)
+        public virtual void Use(PlayerDomain.Player sender)
         {
             if (CanBeUsed == false)
                 return;
@@ -63,6 +63,8 @@ namespace LOK1game.Weapon
                         };
 
                         damagable.TakeDamage(damage);
+
+                        sender.Weapon.OnWeaponHit(_data, damage);
                     }
                 }
             }

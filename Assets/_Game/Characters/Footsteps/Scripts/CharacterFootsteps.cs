@@ -1,4 +1,4 @@
-using LOK1game.Player;
+using LOK1game.PlayerDomain;
 using System.Collections.Generic;
 using UnityEngine;
 

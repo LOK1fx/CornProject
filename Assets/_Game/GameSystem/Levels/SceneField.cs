@@ -20,10 +20,15 @@ namespace LOK1game
             get { return _sceneName; }
         }
 
+#if UNITY_EDITOR
+
         public SceneAsset Scene
         {
             get { return (SceneAsset)_sceneAsset; }
         }
+
+
+#endif
 
         public static implicit operator string(SceneField sceneField)
         {

@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using Photon.Pun;
 
-namespace LOK1game.Player
+namespace LOK1game.PlayerDomain
 {
     [RequireComponent(typeof(PlayerState), typeof(Rigidbody), typeof(CapsuleCollider))]
     public class PlayerMovement : MonoBehaviourPunCallbacks
@@ -242,10 +242,10 @@ namespace LOK1game.Player
         }
 
         /// <summary>
-        /// Возращает не нормализованое напровление ввода относительно игрока.
-        /// Подходит для управления с геймпада
+        /// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ.
+        /// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         /// </summary>
-        /// <param name="input">Ввод</param>
+        /// <param name="input">пїЅпїЅпїЅпїЅ</param>
         /// <returns>Direction</returns>
         public Vector3 GetNonNormDirection(Vector2 input)
         {

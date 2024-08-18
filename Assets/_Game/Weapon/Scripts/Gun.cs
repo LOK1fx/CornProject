@@ -4,7 +4,7 @@ namespace LOK1game.Weapon
 {
     public class Gun : RaycastGun
     {
-        public override void Use(Player.Player sender)
+        public override void Use(PlayerDomain.Player sender)
         {
             base.Use(sender);
 
@@ -15,12 +15,12 @@ namespace LOK1game.Weapon
             sender.Camera.TriggerRecoil(Data.Recoil);
         }
 
-        public override void AltUse(Player.Player sender)
+        public override void AltUse(PlayerDomain.Player sender)
         {
 
         }
 
-        public override void Equip(Player.Player sender)
+        public override void Equip(PlayerDomain.Player sender)
         {
             Debug.Log($"Gun {Data.GunName} equipped");
         }

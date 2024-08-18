@@ -15,10 +15,13 @@ namespace LOK1game.UI
         [SerializeField] private TextMeshProUGUI _reloadingCountdownText;
         [SerializeField] private CanvasGroupFade _damageOverlay;
 
-        private Player.Player _player;
+        [Space]
+        [SerializeField] private Animator _hitmarkerAnimator;
+
+        private PlayerDomain.Player _player;
         private PlayerController _playerController;
 
-        public void BindToPlayer(Player.Player player, PlayerController playerController)
+        public void BindToPlayer(PlayerDomain.Player player, PlayerController playerController)
         {
             _player = player;
             _playerController = playerController;
@@ -33,10 +36,16 @@ namespace LOK1game.UI
             _player.Weapon.OnAttack += UpdateAmmoCounter;
             _player.Weapon.OnReloaded += UpdateAmmoCounter;
             _player.Weapon.OnStartReloading += OnPlayerStartedReloading;
+            _player.Weapon.OnHit += OnPlayerWeaponHit;
             _player.OnDeath += OnPlayerDeath;
             _player.OnTakeDamage += OnPlayerTakeDamage;
 
             _actorInfo.text = $"Actor:{_player.photonView.OwnerActorNr}";
+        }
+
+        private void OnPlayerWeaponHit(Weapon.GunData arg1, Damage arg2)
+        {
+            _hitmarkerAnimator.Play("Hit", 0, 0);
         }
 
         private void OnDestroy()
@@ -46,6 +55,7 @@ namespace LOK1game.UI
             _player.Weapon.OnAttack -= UpdateAmmoCounter;
             _player.Weapon.OnReloaded -= UpdateAmmoCounter;
             _player.Weapon.OnStartReloading += OnPlayerStartedReloading;
+            _player.Weapon.OnHit -= OnPlayerWeaponHit;
             _player.OnDeath -= OnPlayerDeath;
             _player.OnTakeDamage -= OnPlayerTakeDamage;
 

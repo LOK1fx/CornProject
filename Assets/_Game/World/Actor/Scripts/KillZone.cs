@@ -7,9 +7,10 @@ namespace LOK1game
     {
         private void OnTriggerEnter(Collider other)
         {
-            if (other.gameObject.TryGetComponent<Player.Player>(out var player))
+            if (other.gameObject.TryGetComponent<PlayerDomain.Player>(out var player))
             {
-                player.TakeDamage(new Damage(player.Health.MaxHp));
+                if (player.IsLocal)
+                    player.TakeDamage(new Damage(player.Health.MaxHp));
             }
         }
     }

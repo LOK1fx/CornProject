@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using Logger = LOK1game.Utils.Logger;
 
-namespace LOK1game.Player
+namespace LOK1game.PlayerDomain
 {
     [RequireComponent(typeof(Player))]
     public class PlayerLoggerTester : MonoBehaviour

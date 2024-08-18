@@ -21,7 +21,7 @@ namespace LOK1game.Game
 
             if (ui.TryGetComponent<IPlayerHud>(out var playerHud))
             {
-                playerHud.BindToPlayer(player.GetComponent<Player.Player>(), playerController);
+                playerHud.BindToPlayer(player.GetComponent<PlayerDomain.Player>(), playerController);
             }
 
             State = EGameModeState.Started;

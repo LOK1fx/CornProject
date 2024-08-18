@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace LOK1game.Player
+namespace LOK1game.PlayerDomain
 {
     public class PlayerState : MonoBehaviour
     {

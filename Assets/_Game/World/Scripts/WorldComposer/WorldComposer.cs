@@ -1,4 +1,9 @@
+#if UNITY_EDITOR
+
 using UnityEditor.SceneManagement;
+
+#endif
+
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -21,6 +26,8 @@ namespace LOK1game.World
             }
         }
 
+#if UNITY_EDITOR
+
         [ContextMenu("Load additional scenes")]
         private void LoadAllAdditionalLevels_Editor()
         {
@@ -30,5 +37,7 @@ namespace LOK1game.World
                     $"{_levelsData.MainScene.SceneName}/{level.SceneName}{Constants.Editor.ExtensionsNames.SCENE}", OpenSceneMode.Additive);
             }
         }
+
+#endif
     }
 }

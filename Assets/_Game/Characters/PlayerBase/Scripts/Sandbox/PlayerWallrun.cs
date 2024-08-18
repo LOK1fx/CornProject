@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using LOK1game.Player;
+using LOK1game.PlayerDomain;
 
 namespace LOK1game.recode.Player
 {
@@ -25,7 +25,7 @@ namespace LOK1game.recode.Player
         private RaycastHit _rightWallHit;
 
         private Rigidbody _rb;
-        private LOK1game.Player.Player _player;
+        private LOK1game.PlayerDomain.Player _player;
 
         private bool _isWallruning;
 
@@ -39,7 +39,7 @@ namespace LOK1game.recode.Player
 
         private void Start()
         {
-            _player = GetComponent<LOK1game.Player.Player>();
+            _player = GetComponent<LOK1game.PlayerDomain.Player>();
         }
 
         private void CheckWall()

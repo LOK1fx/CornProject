@@ -11,28 +11,28 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_Game/Scenes/SampleScene.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
-  - enabled: 1
+  - enabled: 0
     path: Assets/_Game/Scenes/FACTORY/FACTORY_LOC_CENTER_01.unity
     guid: b01fe85bf888fdc45afe9fbce7b4bf67
-  - enabled: 1
+  - enabled: 0
     path: Assets/_Game/Scenes/FACTORY/FACTORY_LOC_CENTER_02.unity
     guid: c09370b768a3d06438064d915fa2d949
-  - enabled: 1
+  - enabled: 0
     path: Assets/_Game/Scenes/FACTORY/FACTORY_LOC_CENTER_03.unity
     guid: 3b8c22cec746bb64b91304b921352909
-  - enabled: 1
+  - enabled: 0
     path: Assets/_Game/Scenes/FACTORY/FACTORY_LOC_CENTER_04.unity
     guid: 3b74dfd4220a4994f819572bb8061c46
-  - enabled: 1
+  - enabled: 0
     path: Assets/_Game/Scenes/FACTORY/FACTORY_LOC_DEN_01.unity
     guid: 5e1acae0c8a17444b84765dd90e1685d
-  - enabled: 1
+  - enabled: 0
     path: Assets/_Game/Scenes/FACTORY/FACTORY_LOC_EXTRA_01.unity
     guid: 2fc2b7614bc1de74db4886c59a8cecac
-  - enabled: 1
+  - enabled: 0
     path: Assets/_Game/Scenes/FACTORY/FACTORY_LOC_OUTDOORS_01.unity
     guid: ff917216393836344aa45fd984bbb0db
-  - enabled: 1
+  - enabled: 0
     path: Assets/_Game/Scenes/FACTORY/FACTORY.unity
     guid: a9af9d32290d28d46befe3ffbf0c2b4c
   m_configObjects: {}

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace LOK1game.Player
+namespace LOK1game.PlayerDomain
 {
     [CreateAssetMenu(fileName = "new MoveData", menuName = "ReCode/Player/MoveData")]
     public class PlayerMovementParams : ScriptableObject

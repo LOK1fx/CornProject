@@ -6,7 +6,7 @@ using LOK1game.Weapon;
 using Cinemachine;
 using LOK1game.Character.Generic;
 
-namespace LOK1game.Player
+namespace LOK1game.PlayerDomain
 {
     [RequireComponent(typeof(PlayerMovement), typeof(PlayerCamera), typeof(PlayerState))]
     [RequireComponent(typeof(Health), typeof(PlayerWeapon))]

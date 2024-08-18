@@ -1,7 +1,7 @@
 using UnityEngine;
 using Cinemachine;
 
-namespace LOK1game.Player
+namespace LOK1game.PlayerDomain
 {
     public class PlayerCamera : Actor, IPawn
     {
@@ -118,8 +118,8 @@ namespace LOK1game.Player
 
             if (!Application.isMobilePlatform && Cursor.lockState == CursorLockMode.Locked)
             {
-                x = Input.GetAxis("Mouse X");
-                y = Input.GetAxis("Mouse Y");
+                x = Input.GetAxisRaw("Mouse X");
+                y = Input.GetAxisRaw("Mouse Y");
             }
             else
             {
@@ -129,7 +129,6 @@ namespace LOK1game.Player
                     y = Input.GetTouch(0).deltaPosition.y;
                 }
             }
-
             _xRotation += x * GetSensivityMultiplier();
             _yRotation -= y * GetSensivityMultiplier();
 

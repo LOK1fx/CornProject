@@ -50,6 +50,7 @@ MonoBehaviour:
     - {fileID: 5268738137529861291, guid: 23e87304a8d8e404797bd53254b9af40, type: 3}
     - {fileID: 273501598482850652, guid: 353f37b2a0a5bbe428b6793f0829435b, type: 3}
     - {fileID: 6351644373052300999, guid: 5bd1e6090f6e38f4bb2c874ed4c0467f, type: 3}
+    - {fileID: 7025313376033586282, guid: 7a4d2ac7e4ba351458c5716bb4af5951, type: 3}
     _devCardPrefab: {fileID: 989347278380142616, guid: 81fa0a389c837364db945127fee54655, type: 3}
   _loggerContainers:
   - Group: 4

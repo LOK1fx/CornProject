@@ -16,14 +16,14 @@ MonoBehaviour:
   _prefab: {fileID: 6267762195372743963, guid: a3312a87d67cfe04fbff480fb55447ac, type: 3}
   _animatorOverride: {fileID: 22100000, guid: 60d5fff2ffbe3a64f9fef00dc5a44d6b, type: 2}
   _gunName: Pistol
-  _clipAmmo: 6
-  _ammo: 90
+  _clipAmmo: 1
+  _ammo: 110
   _projectilesPerUseCount: 1
   _auto: 0
-  _damage: 125
+  _damage: 250
   _shootDistance: 1000
-  _recoil: {x: 50, y: 5, z: 0}
+  _recoil: {x: 50, y: 5, z: 25}
   _spreadRadius: 1
-  _fireRate: 100
-  _reloadTime: 2
+  _fireRate: 299
+  _reloadTime: 1
   _shootSound: {fileID: 8300000, guid: f14da98f4fd99964c944bc5e2df3deab, type: 3}

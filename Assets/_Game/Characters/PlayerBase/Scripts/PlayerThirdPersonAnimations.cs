@@ -8,7 +8,7 @@ namespace LOK1game.Character
     [RequireComponent(typeof(Animator))]
     public class PlayerThirdPersonAnimations : MonoBehaviour
     {
-        [SerializeField] private Player.Player _player;
+        [SerializeField] private PlayerDomain.Player _player;
 
         [Space]
         [SerializeField] private float _smoothAmount = 0.1f;

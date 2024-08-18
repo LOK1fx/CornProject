@@ -2,7 +2,7 @@
 using UnityEngine;
 using LOK1game.Tools;
 
-namespace LOK1game.Player
+namespace LOK1game.PlayerDomain
 {
     [RequireComponent(typeof(PlayerMovement))]
     public class PlayerVaulting : MonoBehaviour
@@ -46,10 +46,10 @@ namespace LOK1game.Player
             dir.y = 0f;
             dir.Normalize();
 
-            if(playerMovement.GetRoundedSpeed() < _requiredSpeed)
-            {
-                dir = playerMovement.GetDirection(playerMovement.GetInputMoveAxis()).normalized;
-            }
+            //if(playerMovement.GetRoundedSpeed() < _requiredSpeed)
+            //{
+            //    dir = playerMovement.GetDirection(playerMovement.GetInputMoveAxis()).normalized;
+            //}
 
             if (Physics.Raycast(maxVaultPos, dir, 1.5f, _groundMask))
             {

@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 
-namespace LOK1game.Player
+namespace LOK1game.PlayerDomain
 {
     [RequireComponent(typeof(Player))]
     public class PlayerInputProvider : MonoBehaviourPunCallbacks

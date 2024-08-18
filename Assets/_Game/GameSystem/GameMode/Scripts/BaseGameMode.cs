@@ -122,9 +122,9 @@ namespace LOK1game.Game
 
             return spawnPoint.transform.position;
         }
-        
+
         /// <summary>
-        /// Привязывает к режиму объект
+        /// Привязывает объект к режиму
         /// </summary>
         /// <param name="gameObject">Объект</param>
         /// <typeparam name="T">Тип объекта</typeparam>
